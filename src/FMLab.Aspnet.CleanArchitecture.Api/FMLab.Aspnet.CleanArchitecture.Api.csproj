@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Application\FMLab.Aspnet.CleanArchitecture.Application.csproj" />
     <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Domain\FMLab.Aspnet.CleanArchitecture.Domain.csproj" />
-    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture\FMLab.Aspnet.CleanArchitecture.Application\FMLab.Aspnet.CleanArchitecture.Application.csproj" />
-    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture\FMLab.Aspnet.CleanArchitecture.Infrastructure\FMLab.Aspnet.CleanArchitecture.Infrastructure.csproj" />
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Infrastructure\FMLab.Aspnet.CleanArchitecture.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
