@@ -1,0 +1,6 @@
+@FMLab.Aspnet.CleanArchitecture.Api_HostAddress = http://localhost:5182
+
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

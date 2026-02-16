@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.23" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Domain\FMLab.Aspnet.CleanArchitecture.Domain.csproj" />
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture\FMLab.Aspnet.CleanArchitecture.Application\FMLab.Aspnet.CleanArchitecture.Application.csproj" />
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture\FMLab.Aspnet.CleanArchitecture.Infrastructure\FMLab.Aspnet.CleanArchitecture.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
