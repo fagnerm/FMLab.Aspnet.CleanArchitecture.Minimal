@@ -2,14 +2,19 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
-public class Name
+public class Name : IEquatable<Name>
 {
+    public string Value { get; init; }
+
+    public Name(string categoryName)
+    {
+        this.Value = categoryName;
+    }
+
+    public bool Equals(Name? other)
+    {
+        return Value == other?.Value;
+    }
 }

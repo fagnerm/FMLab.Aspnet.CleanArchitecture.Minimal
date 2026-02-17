@@ -2,12 +2,9 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
+using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
+using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 
@@ -19,9 +16,15 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite(":memory:");
+        //optionsBuilder.UseSqlite("Data Source=mydb;Mode=Memory;Cache=Shared");
+        optionsBuilder.UseInMemoryDatabase("clean-arch");
     }
 
-    public DbSet<Domain.Entities.Transaction> Transactions { get; set; }
-    public DbSet<Domain.Entities.Category> Categories { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryEntityConfiguration).Assembly);
+    }
+
+    public DbSet<Transaction> Transactions { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }

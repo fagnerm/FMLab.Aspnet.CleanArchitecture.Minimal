@@ -1,6 +1,5 @@
-@FMLab.Aspnet.CleanArchitecture.Api_HostAddress = http://localhost:5182
+@FMLab.Aspnet.CleanArchitecture.Api_HostAddress = https://localhost:44356
 
-GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/categories?categoryName=Facilities
 
 ###
