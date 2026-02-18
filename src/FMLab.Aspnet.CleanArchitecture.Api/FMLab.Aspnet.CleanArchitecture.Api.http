@@ -1,7 +1,19 @@
 @FMLab.Aspnet.CleanArchitecture.Api_HostAddress = https://localhost:44356
 
-POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/entities?name=Fagner
+POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/entities?name=Fagners
 
 ###
 
 GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/entities?page=1&pageSize=5
+
+###
+
+PUT {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/entities/1/disable
+
+###
+
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/entities?status=Disabled&page=1&pageSize=5
+
+###
+
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/entities?status=Enabled&page=1&pageSize=5

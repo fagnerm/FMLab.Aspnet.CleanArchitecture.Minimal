@@ -4,7 +4,9 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableEntity;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListTransaction;
+using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FMLab.Aspnet.CleanArchitecture.Api.Configurations;
@@ -17,25 +19,19 @@ public static class AppEndpoints
 
         app.MapPost("/entities", CreateEntityEndpoint);
 
-        app.MapPut("/entities/{Id}/disable", DisableEntityEndpoint);
+        app.MapPut("/entities/{id}/disable", DisableEntityEndpoint);
 
         return app;
     }
 
-    private static async Task<IResult> ListAllEntitiesEndpoint([FromServices]IListEntitiesUseCase useCase, [AsParameters]ListEntitiesFilter filter, CancellationToken token)
+    private static async Task<IResult> ListAllEntitiesEndpoint([FromServices] IListEntitiesUseCase useCase, [AsParameters] ListEntitiesInputDTO input, CancellationToken token)
     {
-
-        var input = new ListEntitiesInputDTO(
-            Status: filter.Status,
-            Page: filter.Page,
-            PageSize: filter.PageSize);
-
         var output = await useCase.ExecuteAsync(input, token);
 
         return Results.Ok(output);
     }
 
-    private static async Task<IResult> CreateEntityEndpoint([FromServices] ICreateEntityUseCase useCase, [FromQuery]string name, CancellationToken ct)
+    private static async Task<IResult> CreateEntityEndpoint([FromServices] ICreateEntityUseCase useCase, [FromQuery] string name, CancellationToken ct)
     {
         var input = new CreateEntityInputDTO(name);
         var output = await useCase.ExecuteAsync(input, ct);
@@ -45,8 +41,13 @@ public static class AppEndpoints
                 : Results.Conflict(output.Error);
     }
 
-    private static async Task DisableEntityEndpoint(HttpContext context)
+    private static async Task<IResult> DisableEntityEndpoint([FromServices] IDisableEntityUseCase useCase, [FromRoute] int id, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var input = new DisableEntityInputDTO(id);
+        var output = await useCase.ExecuteAsync(input, ct);
+
+        return output.IsSuccess
+                ? Results.Accepted()
+                : Results.NotFound(output.Error);
     }
 }

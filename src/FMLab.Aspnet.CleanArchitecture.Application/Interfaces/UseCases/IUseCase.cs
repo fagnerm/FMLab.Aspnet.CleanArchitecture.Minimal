@@ -6,7 +6,7 @@ using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 
-public interface IUseCase<TInput,TOutput>
+public interface IUseCase<TInput, TOutput>
     where TInput : class
     where TOutput : class
 {

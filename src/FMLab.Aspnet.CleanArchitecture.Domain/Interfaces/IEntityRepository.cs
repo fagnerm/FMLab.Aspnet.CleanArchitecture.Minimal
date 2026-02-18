@@ -9,5 +9,7 @@ namespace FMLab.Aspnet.CleanArchitecture.Domain.Interfaces;
 public interface IEntityRepository
 {
     Task AddAsync(Entity entity);
-    Task<bool> EntityExistsAsync(Entity entity);
+    Task<bool> ExistsAsync(Entity entity);
+    Task<Entity?> GetByIdAsync(int id);
+    Task UpdateAsync(Entity entity);
 }

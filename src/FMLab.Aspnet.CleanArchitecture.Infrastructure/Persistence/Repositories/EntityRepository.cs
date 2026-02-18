@@ -24,12 +24,27 @@ public class EntityRepository : IEntityRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<bool> EntityExistsAsync(Entity entity)
+    public async Task<bool> ExistsAsync(Entity entity)
     {
         var exists = await _dbContext
                             .Entities
                             .AnyAsync(_ => _.Name == entity.Name);
 
         return exists;
+    }
+
+    public async Task<Entity?> GetByIdAsync(int id)
+    {
+        var entity = await _dbContext
+                            .Entities
+                            .FirstOrDefaultAsync(_ => _.Id == id);
+
+        return entity;
+    }
+
+    public async Task UpdateAsync(Entity entity)
+    {
+        _dbContext.Update(entity);
+        await _dbContext.SaveChangesAsync();
     }
 }

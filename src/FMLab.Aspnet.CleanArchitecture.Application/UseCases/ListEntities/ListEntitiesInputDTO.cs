@@ -7,6 +7,6 @@ using FMLab.Aspnet.CleanArchitecture.Domain.Enums;
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
 public record ListEntitiesInputDTO(
-    EntityStatus? Status,
+    string? Status,
     int? Page = 1,
     int? PageSize = 20);

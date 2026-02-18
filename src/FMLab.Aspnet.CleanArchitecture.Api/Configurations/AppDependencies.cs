@@ -5,6 +5,7 @@
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableEntity;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListTransaction;
 using FMLab.Aspnet.CleanArchitecture.Domain.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Gateways;
@@ -24,7 +25,8 @@ public static class AppDependencies
 
         builder.Services
             .AddScoped<ICreateEntityUseCase, CreateEntityUseCase>()
-            .AddScoped<IListEntitiesUseCase, ListEntitiesUseCase>();
+            .AddScoped<IListEntitiesUseCase, ListEntitiesUseCase>()
+            .AddScoped<IDisableEntityUseCase, DisableEntityUseCase>();
 
         return builder;
     }

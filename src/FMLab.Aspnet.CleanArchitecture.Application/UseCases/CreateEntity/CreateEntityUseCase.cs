@@ -24,7 +24,7 @@ public class CreateEntityUseCase : ICreateEntityUseCase
         var name = new Name(input.Name);
         var category = new Entity(name);
 
-        var found = await _categoryRepository.EntityExistsAsync(category);
+        var found = await _categoryRepository.ExistsAsync(category);
 
         if (found)
         {
