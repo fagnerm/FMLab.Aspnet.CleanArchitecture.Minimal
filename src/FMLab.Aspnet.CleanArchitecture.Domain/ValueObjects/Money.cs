@@ -14,4 +14,17 @@ public class Money
         Value = amount;
         Currency = "R$";
     }
+
+    public static Money Zero
+    {
+        get
+        {
+            return new Money(0);
+        }
+    }
+
+    public override string ToString()
+    {
+        return $"{Currency} {Value}";
+    }
 }

@@ -4,6 +4,7 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 
-public class CategoryDTO
-{
-}
+public record CategoryDTO(
+    int Id,
+    string? Name
+);

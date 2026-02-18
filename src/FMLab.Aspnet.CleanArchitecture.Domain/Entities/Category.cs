@@ -11,6 +11,8 @@ public class Category
     public int Id { get; private set; }
     public Name Name { get; init; }
 
+    private Category() { }
+
     public Category(Name name)
     {
         Name = name;
