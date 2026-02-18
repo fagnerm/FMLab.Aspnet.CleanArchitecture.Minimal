@@ -9,26 +9,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Repositories;
 
-public class CategoryRepository : ICategoryRepository
+public class EntityRepository : IEntityRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
-    public CategoryRepository(ApplicationDbContext context)
+    public EntityRepository(ApplicationDbContext context)
     {
         _dbContext = context;
     }
 
-    public async Task AddAsync(Category category)
+    public async Task AddAsync(Entity entity)
     {
-        await _dbContext.AddAsync(category);
+        await _dbContext.AddAsync(entity);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<bool> CategoryExistsAsync(Category category)
+    public async Task<bool> EntityExistsAsync(Entity entity)
     {
         var exists = await _dbContext
-                            .Categories
-                            .AnyAsync(_ => _.Name == category.Name);
+                            .Entities
+                            .AnyAsync(_ => _.Name == entity.Name);
 
         return exists;
     }

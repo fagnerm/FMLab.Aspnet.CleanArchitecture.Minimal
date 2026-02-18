@@ -22,9 +22,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CategoryEntityConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityConfiguration).Assembly);
     }
 
-    public DbSet<Transaction> Transactions { get; set; }
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<Entity> Entities { get; set; }
 }

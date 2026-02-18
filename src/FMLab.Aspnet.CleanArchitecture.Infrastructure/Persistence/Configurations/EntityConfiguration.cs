@@ -9,13 +9,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Configurations;
 
-public class CategoryEntityConfiguration : IEntityTypeConfiguration<Category>
+public class EntityConfiguration : IEntityTypeConfiguration<Entity>
 {
-    public void Configure(EntityTypeBuilder<Category> builder)
+    public void Configure(EntityTypeBuilder<Entity> builder)
     {
         builder.HasKey(c => c.Id);
         builder.Property(n => n.Name)
                .HasConversion<NameToStringConverter>()
+               .IsRequired();
+        builder.Property(s => s.Status)
                .IsRequired();
     }
 }

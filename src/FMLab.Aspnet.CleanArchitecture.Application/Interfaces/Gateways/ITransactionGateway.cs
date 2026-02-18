@@ -10,5 +10,5 @@ namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 
 public interface ITransactionGateway
 {
-    Task<PageResult<TransactionSummaryDTO>> ListAsync(ListTransactionFilter filter, CancellationToken ct);
+    Task<PageResult<EntitySummaryDTO>> ListAsync(ListEntitiesFilter filter, CancellationToken ct);
 }

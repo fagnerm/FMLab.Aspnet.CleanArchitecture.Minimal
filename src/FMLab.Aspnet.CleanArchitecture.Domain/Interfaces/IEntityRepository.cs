@@ -6,8 +6,8 @@ using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 
 namespace FMLab.Aspnet.CleanArchitecture.Domain.Interfaces;
 
-public interface ICategoryRepository
+public interface IEntityRepository
 {
-    Task AddAsync(Category category);
-    Task<bool> CategoryExistsAsync(Category category);
+    Task AddAsync(Entity entity);
+    Task<bool> EntityExistsAsync(Entity entity);
 }

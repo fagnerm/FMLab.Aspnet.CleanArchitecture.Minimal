@@ -10,30 +10,30 @@ using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-public class CreateCategoryUseCase : ICreateCategoryUseCase
+public class CreateEntityUseCase : ICreateEntityUseCase
 {
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IEntityRepository _categoryRepository;
 
-    public CreateCategoryUseCase(ICategoryRepository categoryRepository)
+    public CreateEntityUseCase(IEntityRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<UseCaseResult> ExecuteAsync(CreateCategoryInput input, CancellationToken cancellationToken)
+    public async Task<UseCaseResult<CreateEntityOutputDTO>> ExecuteAsync(CreateEntityInputDTO input, CancellationToken cancellationToken)
     {
         var name = new Name(input.Name);
-        var category = new Category(name);
+        var category = new Entity(name);
 
-        var found = await _categoryRepository.CategoryExistsAsync(category);
+        var found = await _categoryRepository.EntityExistsAsync(category);
 
         if (found)
         {
-            return UseCaseResult.Failure("Category already exists");
+            return UseCaseResult<CreateEntityOutputDTO>.Failure("Category already exists");
         }
 
 
         await _categoryRepository.AddAsync(category);
 
-        return UseCaseResult.Success();
+        return UseCaseResult<CreateEntityOutputDTO>.Success();
     }
 }

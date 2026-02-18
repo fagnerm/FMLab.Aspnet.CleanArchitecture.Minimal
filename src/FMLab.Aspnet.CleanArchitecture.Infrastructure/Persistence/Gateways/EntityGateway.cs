@@ -11,51 +11,39 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Gateways;
 
-public class TransactionGateway : ITransactionGateway
+public class EntityGateway : ITransactionGateway
 {
     private readonly ApplicationDbContext _context;
 
-    public TransactionGateway(ApplicationDbContext context)
+    public EntityGateway(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<PageResult<TransactionSummaryDTO>> ListAsync(ListTransactionFilter filter, CancellationToken ct)
+    public async Task<PageResult<EntitySummaryDTO>> ListAsync(ListEntitiesFilter filter, CancellationToken ct)
     {
-        var query = _context.Transactions
+        var query = _context.Entities
                             .AsNoTracking()
                             .AsQueryable();
 
-        if (filter.Type.HasValue)
+        if (filter.Status.HasValue)
         {
-            query.Where(t => t.Type == filter.Type.Value);
-        }
-
-        if (filter.StartAt.HasValue)
-        {
-            query.Where(t => t.CreatedAt >= filter.StartAt.Value);
-        }
-
-        if (filter.EndAt.HasValue)
-        {
-            query.Where(t => t.CreatedAt <= filter.EndAt.Value);
+            query = query.Where(t => t.Status == filter.Status.Value);
         }
 
         var totalCount = await query.CountAsync();
 
-        var items = await query.OrderByDescending(t => t.CreatedAt)
+        var items = await query.OrderByDescending(t => t.Name)
             .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
-            .Select(t => new TransactionSummaryDTO(
+            .Select(t => new EntitySummaryDTO(
                 t.Id,
-                t.Amount.Currency,
-                t.Amount.Value,
-                t.Type.ToString(),
-                t.CreatedAt
+                t.Name.Value,
+                t.Status.ToString()
                 ))
             .ToListAsync();
 
-        return new PageResult<TransactionSummaryDTO>(
+        return new PageResult<EntitySummaryDTO>(
             items, filter.Page, filter.PageSize, totalCount);
     }
 }

@@ -17,16 +17,14 @@ public static class AppDependencies
     public static WebApplicationBuilder AddApplicationDependencies(this WebApplicationBuilder builder)
     {
         builder.Services
-            .AddScoped<ICategoryRepository, CategoryRepository>()
-            .AddScoped<ITransactionRepository, TransactionRepository>();
+            .AddScoped<IEntityRepository, EntityRepository>();
 
         builder.Services
-            .AddScoped<ITransactionGateway, TransactionGateway>();
+            .AddScoped<ITransactionGateway, EntityGateway>();
 
         builder.Services
-            .AddScoped<ICreateCategoryUseCase, CreateCategoryUseCase>()
-            .AddScoped<ICreateTransactionUseCase, CreateTransactionUseCase>()
-            .AddScoped<IListTransactionUseCase, ListTransactionUseCase>();
+            .AddScoped<ICreateEntityUseCase, CreateEntityUseCase>()
+            .AddScoped<IListEntitiesUseCase, ListEntitiesUseCase>();
 
         return builder;
     }

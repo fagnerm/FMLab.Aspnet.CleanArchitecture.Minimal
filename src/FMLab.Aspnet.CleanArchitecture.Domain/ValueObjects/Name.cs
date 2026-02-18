@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
-public class Name : IEquatable<Name>
+public class Name : IEquatable<Name>, IComparable<Name>
 {
     public string Value { get; init; }
 
@@ -29,8 +29,13 @@ public class Name : IEquatable<Name>
 
     private bool IsValid(string name)
     {
-        var regex = @"/^[A-Za-z0-9]+$/";
-        return new Regex(regex).IsMatch(name);
+        var pattern = @"^[\p{L}]+$";
+        return Regex.IsMatch(name, pattern);
 
+    }
+
+    public int CompareTo(Name? other)
+    {
+        return string.Compare(Value, other?.Value, StringComparison.Ordinal);
     }
 }

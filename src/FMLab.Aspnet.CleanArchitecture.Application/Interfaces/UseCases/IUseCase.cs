@@ -6,7 +6,9 @@ using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 
-public interface IUseCase<TInput>
+public interface IUseCase<TInput,TOutput>
+    where TInput : class
+    where TOutput : class
 {
-    Task<UseCaseResult> ExecuteAsync(TInput input, CancellationToken cancellationToken);
+    Task<UseCaseResult<TOutput>> ExecuteAsync(TInput input, CancellationToken cancellationToken);
 }

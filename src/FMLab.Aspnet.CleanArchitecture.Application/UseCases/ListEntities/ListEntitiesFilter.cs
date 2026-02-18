@@ -7,5 +7,5 @@ using FMLab.Aspnet.CleanArchitecture.Domain.Enums;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListTransaction;
 
-public record ListTransactionFilter(TransactionType? Type, DateTime? StartAt, DateTime? EndAt, int Page, int PageSize)
+public record ListEntitiesFilter(EntityStatus? Status, int Page, int PageSize)
     : PaginationFilter(Page, PageSize);

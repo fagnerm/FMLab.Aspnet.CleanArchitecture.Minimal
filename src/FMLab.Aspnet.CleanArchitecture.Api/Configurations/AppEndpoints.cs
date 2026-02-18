@@ -13,23 +13,31 @@ public static class AppEndpoints
 {
     public static WebApplication AddApplicationEndpoints(this WebApplication app)
     {
-        app.MapGet("/categories", ListAllCategoriesEndpoint);
+        app.MapGet("/entities", ListAllEntitiesEndpoint);
 
-        app.MapPost("/categories", CreateCategoryEndpoint);
+        app.MapPost("/entities", CreateEntityEndpoint);
 
-        app.MapGet("/transactions", ListAllTransactionsEndpoint);
+        app.MapPut("/entities/{Id}/disable", DisableEntityEndpoint);
 
         return app;
     }
 
-    private static async Task ListAllCategoriesEndpoint(HttpContext context)
+    private static async Task<IResult> ListAllEntitiesEndpoint([FromServices]IListEntitiesUseCase useCase, [AsParameters]ListEntitiesFilter filter, CancellationToken token)
     {
-        throw new NotImplementedException();
+
+        var input = new ListEntitiesInputDTO(
+            Status: filter.Status,
+            Page: filter.Page,
+            PageSize: filter.PageSize);
+
+        var output = await useCase.ExecuteAsync(input, token);
+
+        return Results.Ok(output);
     }
 
-    private static async Task<IResult> CreateCategoryEndpoint([FromServices] ICreateCategoryUseCase useCase, CancellationToken ct, string categoryName)
+    private static async Task<IResult> CreateEntityEndpoint([FromServices] ICreateEntityUseCase useCase, [FromQuery]string name, CancellationToken ct)
     {
-        var input = new CreateCategoryInput(categoryName);
+        var input = new CreateEntityInputDTO(name);
         var output = await useCase.ExecuteAsync(input, ct);
 
         return output.IsSuccess
@@ -37,17 +45,8 @@ public static class AppEndpoints
                 : Results.Conflict(output.Error);
     }
 
-    private static async Task<IResult> ListAllTransactionsEndpoint([FromServices] IListTransactionUseCase useCase, [AsParameters] ListTransactionFilter filter, CancellationToken ct)
+    private static async Task DisableEntityEndpoint(HttpContext context)
     {
-        var input = new ListTransactionInput(
-            Type: filter.Type,
-            StartDate: filter.StartAt,
-            EndDate: filter.EndAt,
-            Page: filter.Page,
-            PageSize: filter.PageSize);
-
-        var output = await useCase.ExecuteAsync(input, ct);
-
-        return Results.Ok(output);
+        throw new NotImplementedException();
     }
 }

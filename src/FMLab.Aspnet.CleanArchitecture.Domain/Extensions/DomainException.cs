@@ -15,7 +15,7 @@ internal static class DomainException
     {
         if (obj is not null) return;
 
-        throw new Exceptions.DomainException("Object can't be null");
+        throw new Exceptions.DomainException($"{nameof(obj)} can't be null");
     }
 
     public static void ThrowIfNullOrEmpty(this string obj, string message)

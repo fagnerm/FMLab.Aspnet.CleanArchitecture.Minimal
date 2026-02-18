@@ -2,8 +2,10 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteCategory;
+namespace FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 
-public class DeleteCategoryUseCase
-{
-}
+public record EntitySummaryDTO(
+    int Id,
+    string Name,
+    string Status
+    );
