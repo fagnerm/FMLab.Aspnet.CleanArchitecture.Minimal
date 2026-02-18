@@ -6,4 +6,12 @@ namespace FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
 public class Money
 {
+    public decimal Value { get; init; }
+    public string Currency { get; init; }
+
+    public Money(decimal amount)
+    {
+        Value = amount;
+        Currency = "R$";
+    }
 }

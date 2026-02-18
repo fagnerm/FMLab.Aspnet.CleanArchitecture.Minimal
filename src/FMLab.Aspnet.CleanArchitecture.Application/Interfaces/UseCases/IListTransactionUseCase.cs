@@ -4,9 +4,9 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
+namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 
-public interface ICreateCategoryUseCase : IUseCase<CreateCategoryInput>
+public interface IListTransactionUseCase
 {
-
+    Task<ListTransactionOutput> ExecuteAsync(ListTransactionInput input, CancellationToken ct);
 }

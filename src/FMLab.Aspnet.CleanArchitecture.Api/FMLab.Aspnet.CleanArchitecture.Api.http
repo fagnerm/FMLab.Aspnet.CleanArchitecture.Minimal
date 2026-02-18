@@ -3,3 +3,5 @@
 POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/categories?categoryName=Facilities
 
 ###
+
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/transactions?type=Expense&StartAt=2026-01-01&EndAt=2026-02-10&page=1&pageSize=30

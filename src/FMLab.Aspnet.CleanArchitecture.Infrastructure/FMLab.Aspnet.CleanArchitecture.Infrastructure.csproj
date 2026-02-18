@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Application\FMLab.Aspnet.CleanArchitecture.Application.csproj" />
     <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Domain\FMLab.Aspnet.CleanArchitecture.Domain.csproj" />
   </ItemGroup>
 

@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
+namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 
 public interface IUseCase<TInput>
 {

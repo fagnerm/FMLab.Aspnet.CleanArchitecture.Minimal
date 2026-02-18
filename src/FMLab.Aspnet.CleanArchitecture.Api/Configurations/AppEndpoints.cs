@@ -2,8 +2,9 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
+using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListTransaction;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FMLab.Aspnet.CleanArchitecture.Api.Configurations;
@@ -15,6 +16,8 @@ public static class AppEndpoints
         app.MapGet("/categories", ListAllCategoriesEndpoint);
 
         app.MapPost("/categories", CreateCategoryEndpoint);
+
+        app.MapGet("/transactions", ListAllTransactionsEndpoint);
 
         return app;
     }
@@ -32,5 +35,19 @@ public static class AppEndpoints
         return output.IsSuccess
                 ? Results.Created()
                 : Results.Conflict(output.Error);
+    }
+
+    private static async Task<IResult> ListAllTransactionsEndpoint([FromServices] IListTransactionUseCase useCase, [AsParameters] ListTransactionFilter filter, CancellationToken ct)
+    {
+        var input = new ListTransactionInput(
+            Type: filter.Type,
+            StartDate: filter.StartAt,
+            EndDate: filter.EndAt,
+            Page: filter.Page,
+            PageSize: filter.PageSize);
+
+        var output = await useCase.ExecuteAsync(input, ct);
+
+        return Results.Ok(output);
     }
 }
