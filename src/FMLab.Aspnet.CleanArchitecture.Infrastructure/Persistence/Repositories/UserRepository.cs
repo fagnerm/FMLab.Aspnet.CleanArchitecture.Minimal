@@ -2,49 +2,49 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Domain.Interfaces;
+using FMLab.Aspnet.CleanArchitecture.Domain.Users;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Repositories;
 
-public class EntityRepository : IEntityRepository
+public class UserRepository : IUserRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
-    public EntityRepository(ApplicationDbContext context)
+    public UserRepository(ApplicationDbContext context)
     {
         _dbContext = context;
     }
 
-    public async Task AddAsync(Entity entity)
+    public async Task AddAsync(User User)
     {
-        await _dbContext.AddAsync(entity);
+        await _dbContext.AddAsync(User);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<bool> ExistsAsync(Entity entity)
+    public async Task<bool> ExistsAsync(User User)
     {
         var exists = await _dbContext
-                            .Entities
-                            .AnyAsync(_ => _.Name == entity.Name);
+                            .Users
+                            .AnyAsync(_ => _.Name == User.Name);
 
         return exists;
     }
 
-    public async Task<Entity?> GetByIdAsync(int id)
+    public async Task<User?> GetByIdAsync(int id)
     {
-        var entity = await _dbContext
-                            .Entities
+        var User = await _dbContext
+                            .Users
                             .FirstOrDefaultAsync(_ => _.Id == id);
 
-        return entity;
+        return User;
     }
 
-    public async Task UpdateAsync(Entity entity)
+    public async Task UpdateAsync(User User)
     {
-        _dbContext.Update(entity);
+        _dbContext.Update(User);
         await _dbContext.SaveChangesAsync();
     }
 }

@@ -4,25 +4,25 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListTransaction;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Gateways;
 
-public class EntityGateway : ITransactionGateway
+public class UserGateway : IUserGateway
 {
     private readonly ApplicationDbContext _context;
 
-    public EntityGateway(ApplicationDbContext context)
+    public UserGateway(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<PageResult<EntitySummaryDTO>> ListAsync(ListEntitiesFilter filter, CancellationToken ct)
+    public async Task<PageResult<UserSummaryDTO>> ListAsync(ListUsersFilter filter, CancellationToken ct)
     {
-        var query = _context.Entities
+        var query = _context.Users
                             .AsNoTracking()
                             .AsQueryable();
 
@@ -36,14 +36,14 @@ public class EntityGateway : ITransactionGateway
         var items = await query.OrderByDescending(t => t.Name)
             .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
-            .Select(t => new EntitySummaryDTO(
+            .Select(t => new UserSummaryDTO(
                 t.Id,
                 t.Name.Value,
                 t.Status.ToString()
                 ))
             .ToListAsync();
 
-        return new PageResult<EntitySummaryDTO>(
+        return new PageResult<UserSummaryDTO>(
             items, filter.Page, filter.PageSize, totalCount);
     }
 }

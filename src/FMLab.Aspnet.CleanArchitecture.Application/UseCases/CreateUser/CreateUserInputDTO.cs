@@ -2,10 +2,6 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-namespace FMLab.Aspnet.CleanArchitecture.Domain.Enums;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-public enum EntityStatus
-{
-    Enabled = 1,
-    Disabled = 2,
-}
+public record CreateUserInputDTO(string Name);

@@ -2,9 +2,10 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.Validations
+namespace FMLab.Aspnet.CleanArchitecture.Domain.Enums;
+
+public enum UserStatus
 {
-    internal class CreateEntityValidator
-    {
-    }
+    Enabled = 1,
+    Disabled = 2,
 }

@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
+using FMLab.Aspnet.CleanArchitecture.Domain.Users;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,8 +22,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityConfiguration).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
     }
 
-    public DbSet<Entity> Entities { get; set; }
+    public DbSet<User> Users { get; set; }
 }

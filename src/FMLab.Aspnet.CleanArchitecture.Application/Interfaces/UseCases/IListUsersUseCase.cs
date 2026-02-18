@@ -6,7 +6,7 @@ using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 
-public interface ICreateEntityUseCase : IUseCase<CreateEntityInputDTO, CreateEntityOutputDTO>
+public interface IListUsersUseCase
 {
-
+    Task<ListUsersOutputDTO> ExecuteAsync(ListUsersInputDTO input, CancellationToken ct);
 }

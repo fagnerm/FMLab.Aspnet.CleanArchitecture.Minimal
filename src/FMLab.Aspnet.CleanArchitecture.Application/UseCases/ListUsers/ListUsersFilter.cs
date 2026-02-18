@@ -5,7 +5,7 @@
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
 using FMLab.Aspnet.CleanArchitecture.Domain.Enums;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListTransaction;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-public record ListEntitiesFilter(EntityStatus? Status, int Page, int PageSize)
+public record ListUsersFilter(UserStatus? Status, int Page, int PageSize)
     : PaginationFilter(Page, PageSize);

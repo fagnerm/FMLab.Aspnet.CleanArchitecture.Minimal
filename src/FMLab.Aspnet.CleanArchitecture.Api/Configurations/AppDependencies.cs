@@ -5,8 +5,6 @@
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableEntity;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListTransaction;
 using FMLab.Aspnet.CleanArchitecture.Domain.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Repositories;
@@ -18,15 +16,15 @@ public static class AppDependencies
     public static WebApplicationBuilder AddApplicationDependencies(this WebApplicationBuilder builder)
     {
         builder.Services
-            .AddScoped<IEntityRepository, EntityRepository>();
+            .AddScoped<IUserRepository, UserRepository>();
 
         builder.Services
-            .AddScoped<ITransactionGateway, EntityGateway>();
+            .AddScoped<IUserGateway, UserGateway>();
 
         builder.Services
-            .AddScoped<ICreateEntityUseCase, CreateEntityUseCase>()
-            .AddScoped<IListEntitiesUseCase, ListEntitiesUseCase>()
-            .AddScoped<IDisableEntityUseCase, DisableEntityUseCase>();
+            .AddScoped<ICreateUserUseCase, CreateUserUseCase>()
+            .AddScoped<IListUsersUseCase, ListUsersUseCase>()
+            .AddScoped<IDisableUserUseCase, DisableUserUseCase>();
 
         return builder;
     }

@@ -4,4 +4,7 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-public record CreateEntityInputDTO(string Name);
+public record ListUsersInputDTO(
+    string? Status,
+    int? Page = 1,
+    int? PageSize = 20);

@@ -4,9 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableEntity;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListTransaction;
-using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FMLab.Aspnet.CleanArchitecture.Api.Configurations;
@@ -15,25 +13,25 @@ public static class AppEndpoints
 {
     public static WebApplication AddApplicationEndpoints(this WebApplication app)
     {
-        app.MapGet("/entities", ListAllEntitiesEndpoint);
+        app.MapGet("/users", ListAllUsersEndpoint);
 
-        app.MapPost("/entities", CreateEntityEndpoint);
+        app.MapPost("/users", CreateUserEndpoint);
 
-        app.MapPut("/entities/{id}/disable", DisableEntityEndpoint);
+        app.MapPut("/users/{id}/disable", DisableUserEndpoint);
 
         return app;
     }
 
-    private static async Task<IResult> ListAllEntitiesEndpoint([FromServices] IListEntitiesUseCase useCase, [AsParameters] ListEntitiesInputDTO input, CancellationToken token)
+    private static async Task<IResult> ListAllUsersEndpoint([FromServices] IListUsersUseCase useCase, [AsParameters] ListUsersInputDTO input, CancellationToken token)
     {
         var output = await useCase.ExecuteAsync(input, token);
 
         return Results.Ok(output);
     }
 
-    private static async Task<IResult> CreateEntityEndpoint([FromServices] ICreateEntityUseCase useCase, [FromQuery] string name, CancellationToken ct)
+    private static async Task<IResult> CreateUserEndpoint([FromServices] ICreateUserUseCase useCase, [FromQuery] string name, CancellationToken ct)
     {
-        var input = new CreateEntityInputDTO(name);
+        var input = new CreateUserInputDTO(name);
         var output = await useCase.ExecuteAsync(input, ct);
 
         return output.IsSuccess
@@ -41,9 +39,9 @@ public static class AppEndpoints
                 : Results.Conflict(output.Error);
     }
 
-    private static async Task<IResult> DisableEntityEndpoint([FromServices] IDisableEntityUseCase useCase, [FromRoute] int id, CancellationToken ct)
+    private static async Task<IResult> DisableUserEndpoint([FromServices] IDisableUserUseCase useCase, [FromRoute] int id, CancellationToken ct)
     {
-        var input = new DisableEntityInputDTO(id);
+        var input = new DisableUserInputDTO(id);
         var output = await useCase.ExecuteAsync(input, ct);
 
         return output.IsSuccess

@@ -5,24 +5,24 @@
 using FMLab.Aspnet.CleanArchitecture.Domain.Enums;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
-namespace FMLab.Aspnet.CleanArchitecture.Domain.Entities;
+namespace FMLab.Aspnet.CleanArchitecture.Domain.Users;
 
-public class Entity
+public class User
 {
     public int Id { get; private set; }
-    public EntityStatus Status { get; private set; }
+    public UserStatus Status { get; private set; }
     public Name Name { get; init; }
 
-    private Entity() { }
+    private User() { }
 
-    public Entity(Name name)
+    public User(Name name)
     {
         Name = name;
-        Status = EntityStatus.Enabled;
+        Status = UserStatus.Enabled;
     }
 
     public void Disable()
     {
-        Status = EntityStatus.Disabled;
+        Status = UserStatus.Disabled;
     }
 }
