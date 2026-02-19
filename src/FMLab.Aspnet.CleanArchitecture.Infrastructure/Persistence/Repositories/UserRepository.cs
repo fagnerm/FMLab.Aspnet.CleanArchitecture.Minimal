@@ -4,6 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Domain.Users;
+using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,11 +24,11 @@ public class UserRepository : IUserRepository
         await _dbContext.AddAsync(User);
     }
 
-    public async Task<bool> ExistsAsync(User User)
+    public async Task<bool> ExistsAsync(Name name)
     {
         var exists = await _dbContext
                             .Users
-                            .AnyAsync(_ => _.Name == User.Name);
+                            .AnyAsync(_ => _.Name == name);
 
         return exists;
     }

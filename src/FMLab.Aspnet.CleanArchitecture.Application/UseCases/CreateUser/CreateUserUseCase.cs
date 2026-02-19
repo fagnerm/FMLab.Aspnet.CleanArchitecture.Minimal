@@ -24,15 +24,15 @@ public class CreateUserUseCase : TransactionalUseCaseBase<CreateUserInputDTO, Cr
     public override async Task<UseCaseResult<CreateUserOutputDTO>> ExecuteHandlerAsync(CreateUserInputDTO input, CancellationToken cancellationToken)
     {
         var name = new Name(input.Name);
-        var user = new User(name);
 
-        var found = await _userRepository.ExistsAsync(user);
+        var found = await _userRepository.ExistsAsync(name);
 
         if (found)
         {
             return UseCaseResult<CreateUserOutputDTO>.Failure("User already exists");
         }
 
+        var user = new User(name);
         await _userRepository.AddAsync(user);
 
         return UseCaseResult<CreateUserOutputDTO>.Success();
