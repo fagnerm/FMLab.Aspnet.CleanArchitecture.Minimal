@@ -23,7 +23,7 @@ public class ListUsersUseCase : IListUsersUseCase
                                 ? parsedStatus
                                 : null;
 
-        var filter = new ListUsersFilter(status, input.Page.Value, input.PageSize.Value);
+        var filter = new ListUsersFilter(status, input.Page ?? 1, input.PageSize ?? 20);
         var result = await _gateway.ListAsync(filter, ct);
 
         return new ListUsersOutputDTO(result.Items, result.Page, result.PageSize, result.TotalPages, result.TotalCount);

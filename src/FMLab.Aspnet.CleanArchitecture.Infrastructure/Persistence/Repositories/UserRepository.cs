@@ -21,7 +21,6 @@ public class UserRepository : IUserRepository
     public async Task AddAsync(User User)
     {
         await _dbContext.AddAsync(User);
-        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<bool> ExistsAsync(User User)
@@ -42,9 +41,9 @@ public class UserRepository : IUserRepository
         return User;
     }
 
-    public async Task UpdateAsync(User User)
+    public Task UpdateAsync(User User)
     {
         _dbContext.Update(User);
-        await _dbContext.SaveChangesAsync();
+        return Task.CompletedTask;
     }
 }

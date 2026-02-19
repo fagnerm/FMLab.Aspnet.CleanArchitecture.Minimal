@@ -13,7 +13,7 @@ public class User
     public UserStatus Status { get; private set; }
     public Name Name { get; init; }
 
-    private User() { }
+    private User() { Name = null!; }
 
     public User(Name name)
     {

@@ -12,10 +12,10 @@ public static class ApplicationModule
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services
-            .AddScoped<ICreateUserUseCase, CreateUserUseCase>()
-            .AddScoped<IListUsersUseCase, ListUsersUseCase>()
-            .AddScoped<IDisableUserUseCase, DisableUserUseCase>();
+        services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
+        services.AddScoped<IDisableUserUseCase, DisableUserUseCase>();
+
+        services.AddScoped<IListUsersUseCase, ListUsersUseCase>();
 
         return services;
     }

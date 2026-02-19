@@ -3,9 +3,8 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FMLab.Aspnet.CleanArchitecture.Api.Configurations;
-using FMLab.Aspnet.CleanArchitecture.Infrastructure.DependencyInjection;
 using FMLab.Aspnet.CleanArchitecture.Application.DependencyInjection;
-using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
+using FMLab.Aspnet.CleanArchitecture.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

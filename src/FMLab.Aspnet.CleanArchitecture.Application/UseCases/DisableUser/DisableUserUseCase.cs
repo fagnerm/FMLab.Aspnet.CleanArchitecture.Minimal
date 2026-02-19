@@ -2,32 +2,34 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
+using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-public class DisableUserUseCase : IDisableUserUseCase
+public class DisableUserUseCase : TransactionalUseCaseBase<DisableUserInputDTO, DisableUserOutputDTO>, IDisableUserUseCase
 {
-    private IUserRepository _repository;
+    private readonly IUserRepository _repository;
 
-    public DisableUserUseCase(IUserRepository repository)
+    public DisableUserUseCase(IUnitOfWork unitOfWork, IUserRepository repository)
+        : base(unitOfWork)
     {
         _repository = repository;
     }
 
-    public async Task<UseCaseResult<DisableUserOutputDTO>> ExecuteAsync(DisableUserInputDTO input, CancellationToken cancellationToken)
+    public override async Task<UseCaseResult<DisableUserOutputDTO>> ExecuteHandlerAsync(DisableUserInputDTO input, CancellationToken cancellationToken)
     {
-        var User = await _repository.GetByIdAsync(input.Id);
+        var user = await _repository.GetByIdAsync(input.Id);
 
-        if (User == null)
+        if (user == null)
         {
             return UseCaseResult<DisableUserOutputDTO>.Failure("User not found");
         }
 
-        User.Disable();
-        await _repository.UpdateAsync(User);
+        user.Disable();
+        await _repository.UpdateAsync(user);
 
         return UseCaseResult<DisableUserOutputDTO>.Success();
     }
