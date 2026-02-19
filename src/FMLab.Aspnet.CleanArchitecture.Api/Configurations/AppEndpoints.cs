@@ -4,14 +4,13 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FMLab.Aspnet.CleanArchitecture.Api.Configurations;
 
 public static class AppEndpoints
 {
-    public static WebApplication AddApplicationEndpoints(this WebApplication app)
+    public static WebApplication UseApplicationEndpoints(this WebApplication app)
     {
         app.MapGet("/users", ListAllUsersEndpoint);
 

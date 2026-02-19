@@ -3,17 +3,14 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FMLab.Aspnet.CleanArchitecture.Api.Configurations;
+using FMLab.Aspnet.CleanArchitecture.Infrastructure.DependencyInjection;
+using FMLab.Aspnet.CleanArchitecture.Application.DependencyInjection;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.LogTo(Console.WriteLine, LogLevel.Information)
-           .EnableSensitiveDataLogging();
-});
-
-builder.AddApplicationDependencies();
+builder.Services.AddInfrastructure();
+builder.Services.AddApplication();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -27,7 +24,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.AddApplicationEndpoints();
+app.UseApplicationEndpoints();
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
