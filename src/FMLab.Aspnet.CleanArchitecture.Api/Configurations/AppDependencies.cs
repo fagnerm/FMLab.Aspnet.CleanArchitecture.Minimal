@@ -3,9 +3,9 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
+using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Domain.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Repositories;
 

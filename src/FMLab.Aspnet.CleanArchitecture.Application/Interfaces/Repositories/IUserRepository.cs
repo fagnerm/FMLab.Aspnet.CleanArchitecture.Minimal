@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Domain.Users;
 
-namespace FMLab.Aspnet.CleanArchitecture.Domain.Interfaces;
+namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 
 public interface IUserRepository
 {
