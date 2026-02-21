@@ -25,10 +25,10 @@ public class DisableUserUseCase : TransactionalUseCaseBase<DisableUserInputDTO, 
 
         if (user == null)
         {
-            return UseCaseResult<DisableUserOutputDTO>.Failure("User not found");
+            return UseCaseResult<DisableUserOutputDTO>.Failure(error: "User not found");
         }
 
-        user.Disable();
+        user.Deactivate();
         await _repository.UpdateAsync(user);
 
         return UseCaseResult<DisableUserOutputDTO>.Success();

@@ -9,33 +9,45 @@ public abstract class UseCaseResult<TOutput>
 {
     public bool IsSuccess { get; protected set; }
     public string? Error { get; protected set; }
+    public IReadOnlyCollection<string> Messages { get; protected set; } = new List<string>();
+    public TOutput? Data { get; protected set; } = default;
 
-    public static UseCaseResult<TOutput> Success()
+    public static UseCaseResult<TOutput> Success(TOutput? data = default, string? message = default)
     {
-        return new SuccessOutput<TOutput>();
+        return new SuccessOutput<TOutput>(data, message);
     }
 
-    public static UseCaseResult<TOutput> Failure(string message)
+    public static UseCaseResult<TOutput> Failure(TOutput? data = default, string? error = null)
     {
-        return new FailureOutput<TOutput>(message);
+        return new FailureOutput<TOutput>(data, error);
+    }
+
+    public void AddMessage(string message)
+    {
+        if (string.IsNullOrEmpty(message)) return;
+
+        Messages.Append(message);
     }
 }
 
 public class SuccessOutput<TOutput> : UseCaseResult<TOutput>
     where TOutput : class
 {
-    public SuccessOutput()
+    public SuccessOutput(TOutput? data, string? message)
     {
         IsSuccess = true;
+        Data = data;
+        Messages.Append(message);
     }
 }
 
 public class FailureOutput<TOutput> : UseCaseResult<TOutput>
     where TOutput : class
 {
-    public FailureOutput(string message)
+    public FailureOutput(TOutput? data, string? error)
     {
         IsSuccess = false;
-        Error = message;
+        Error = error;
+        Data = data;
     }
 }

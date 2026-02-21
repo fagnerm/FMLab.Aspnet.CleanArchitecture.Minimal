@@ -29,13 +29,13 @@ public static class AppEndpoints
         return Results.Ok(output);
     }
 
-    private static async Task<IResult> CreateUserEndpoint([FromServices] ICreateUserUseCase useCase, [FromQuery] string name, CancellationToken ct)
+    private static async Task<IResult> CreateUserEndpoint([FromServices] ICreateUserUseCase useCase, [FromQuery] string name, string email, CancellationToken ct)
     {
         var input = new CreateUserInputDTO(name, email);
         var output = await useCase.ExecuteAsync(input, ct);
 
         return output.IsSuccess
-                ? Results.Created()
+                ? Results.Created($"users/{output?.Data?.Id}", output?.Data)
                 : Results.Conflict(output.Error);
     }
 

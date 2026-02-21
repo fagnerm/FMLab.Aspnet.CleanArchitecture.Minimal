@@ -26,7 +26,7 @@ public abstract class TransactionalUseCaseBase<TInput, TOutput> : IUseCase<TInpu
         {
             await _unitOfWork.CommitAsync(cancellationToken);
         }
-        
+
         return result;
     }
 
