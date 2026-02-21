@@ -21,7 +21,12 @@ public abstract class TransactionalUseCaseBase<TInput, TOutput> : IUseCase<TInpu
     public async Task<UseCaseResult<TOutput>> ExecuteAsync(TInput input, CancellationToken cancellationToken)
     {
         var result = await ExecuteHandlerAsync(input, cancellationToken);
-        await _unitOfWork.CommitAsync(cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            await _unitOfWork.CommitAsync(cancellationToken);
+        }
+        
         return result;
     }
 
