@@ -28,20 +28,23 @@ public class CreateUserUseCase : TransactionalUseCaseBase<CreateUserInputDTO, Cr
     {
         var validation = _validator.Validate(input);
         if (!validation.IsValid)
-            return UseCaseResult<CreateUserOutputDTO>.Failure(validation.Errors[0].ErrorMessage);
+            return UseCaseResult<CreateUserOutputDTO>.Failure(error: validation.Errors[0].ErrorMessage);
 
         var name = new Name(input.Name);
+        var email = new Email(input.Email);
 
         var found = await _userRepository.ExistsAsync(name);
 
         if (found)
         {
-            return UseCaseResult<CreateUserOutputDTO>.Failure("User already exists");
+            return UseCaseResult<CreateUserOutputDTO>.Failure(error: "User already exists");
         }
 
-        var user = new User(name);
+        var user = new User(name, email);
         await _userRepository.AddAsync(user);
 
-        return UseCaseResult<CreateUserOutputDTO>.Success();
+        var result = new CreateUserOutputDTO(user.Id, user.Name.Value, user.EMail.Value, user.Status.ToString());
+
+        return UseCaseResult<CreateUserOutputDTO>.Success(data: result, "User created");
     }
 }

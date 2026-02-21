@@ -31,7 +31,7 @@ public static class AppEndpoints
 
     private static async Task<IResult> CreateUserEndpoint([FromServices] ICreateUserUseCase useCase, [FromQuery] string name, CancellationToken ct)
     {
-        var input = new CreateUserInputDTO(name);
+        var input = new CreateUserInputDTO(name, email);
         var output = await useCase.ExecuteAsync(input, ct);
 
         return output.IsSuccess

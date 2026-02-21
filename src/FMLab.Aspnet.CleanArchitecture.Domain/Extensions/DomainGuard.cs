@@ -4,7 +4,7 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Domain.Extensions;
 
-internal static class DomainException
+internal static class DomainGuard
 {
     public static void Throw(string message, Exception? innerException = null)
     {

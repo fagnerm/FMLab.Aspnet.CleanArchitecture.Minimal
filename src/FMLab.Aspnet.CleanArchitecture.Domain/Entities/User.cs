@@ -10,19 +10,25 @@ namespace FMLab.Aspnet.CleanArchitecture.Domain.Users;
 public class User
 {
     public int Id { get; private set; }
-    public UserStatus Status { get; private set; }
     public Name Name { get; init; }
+    public Email EMail { get; init; }
+    public UserStatus Status { get; private set; }
 
-    private User() { Name = null!; }
-
-    public User(Name name)
+    private User()
     {
-        Name = name;
-        Status = UserStatus.Enabled;
+        Name = null!;
+        EMail = null!;
     }
 
-    public void Disable()
+    public User(Name name, Email email)
     {
-        Status = UserStatus.Disabled;
+        Name = name;
+        Status = UserStatus.Active;
+        EMail = email;
+    }
+
+    public void Deactivate()
+    {
+        Status = UserStatus.Deactivated;
     }
 }

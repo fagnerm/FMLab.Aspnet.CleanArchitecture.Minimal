@@ -16,7 +16,7 @@ public class Name : IEquatable<Name>, IComparable<Name>
         name.ThrowIfNullOrEmpty("Must inform a name");
         if (!IsValid(name))
         {
-            DomainException.Throw("Must inform a valid name");
+            Extensions.DomainGuard.Throw("Must inform a valid name");
         }
 
         Value = name;

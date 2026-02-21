@@ -6,6 +6,6 @@ namespace FMLab.Aspnet.CleanArchitecture.Domain.Enums;
 
 public enum UserStatus
 {
-    Enabled = 1,
-    Disabled = 2,
+    Active = 1,
+    Deactivated = 2,
 }
