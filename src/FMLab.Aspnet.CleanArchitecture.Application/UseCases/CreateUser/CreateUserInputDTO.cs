@@ -4,4 +4,4 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-public record CreateUserInputDTO(string Name, string Email);
+public record CreateUserInputDTO(string Name, string? Email);

@@ -39,11 +39,28 @@ public class UserGateway : IUserGateway
             .Select(t => new UserSummaryDTO(
                 t.Id,
                 t.Name.Value,
+                t.Email!.Value,
                 t.Status.ToString()
                 ))
-            .ToListAsync();
+            .ToListAsync(ct);
 
         return new PageResult<UserSummaryDTO>(
             items, filter.Page, filter.PageSize, totalCount);
+    }
+
+    public async Task<UserSummaryDTO?> ListUserByIdAsync(int id, CancellationToken token)
+    {
+        var query = _context.Users
+                            .AsNoTracking()
+                            .AsQueryable();
+
+        var user = await query.SingleOrDefaultAsync(u => u.Id == id, token);
+
+        if (user is null)
+        {
+            return null;
+        }
+
+        return new UserSummaryDTO(user.Id, user.Name.Value, user.Email?.Value, user.Status.ToString());
     }
 }

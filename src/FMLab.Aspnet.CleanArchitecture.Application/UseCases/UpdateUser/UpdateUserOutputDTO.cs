@@ -4,4 +4,4 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-public record CreateUserOutputDTO(int Id, string Name, string? email, string Status);
+public record UpdateUserOutputDTO(int Id, string Name, string Email);

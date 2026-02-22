@@ -9,8 +9,9 @@ namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 
 public interface IUserRepository
 {
-    Task AddAsync(User user);
-    Task<bool> ExistsAsync(Name name);
-    Task<User?> GetByIdAsync(int id);
-    Task UpdateAsync(User user);
+    Task AddAsync(User user, CancellationToken token);
+    void Delete(User user);
+    Task<bool> ExistsAsync(Name name, CancellationToken token);
+    Task<User?> GetByIdAsync(int id, CancellationToken token);
+    User Update(User user);
 }

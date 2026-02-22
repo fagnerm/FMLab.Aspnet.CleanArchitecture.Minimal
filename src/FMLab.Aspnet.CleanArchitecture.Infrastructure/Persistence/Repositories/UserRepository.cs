@@ -19,32 +19,38 @@ public class UserRepository : IUserRepository
         _dbContext = context;
     }
 
-    public async Task AddAsync(User User)
+    public async Task AddAsync(User User, CancellationToken token)
     {
-        await _dbContext.AddAsync(User);
+        await _dbContext.AddAsync(User, token)
+                        .ConfigureAwait(false);
     }
 
-    public async Task<bool> ExistsAsync(Name name)
+    public void Delete(User user)
+    {
+        _dbContext.Remove(user);
+    }
+
+    public async Task<bool> ExistsAsync(Name name, CancellationToken token)
     {
         var exists = await _dbContext
                             .Users
-                            .AnyAsync(_ => _.Name == name);
+                            .AnyAsync(_ => _.Name == name, token);
 
         return exists;
     }
 
-    public async Task<User?> GetByIdAsync(int id)
+    public async Task<User?> GetByIdAsync(int id, CancellationToken token)
     {
         var User = await _dbContext
                             .Users
-                            .FirstOrDefaultAsync(_ => _.Id == id);
+                            .FirstOrDefaultAsync(_ => _.Id == id, token);
 
         return User;
     }
 
-    public Task UpdateAsync(User User)
+    public User Update(User user)
     {
-        _dbContext.Update(User);
-        return Task.CompletedTask;
+        _dbContext.Update(user);
+        return user;
     }
 }

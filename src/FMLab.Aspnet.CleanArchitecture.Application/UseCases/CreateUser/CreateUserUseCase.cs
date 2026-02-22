@@ -31,9 +31,9 @@ public class CreateUserUseCase : TransactionalUseCaseBase<CreateUserInputDTO, Cr
             return UseCaseResult<CreateUserOutputDTO>.Failure(error: validation.Errors[0].ErrorMessage);
 
         var name = new Name(input.Name);
-        var email = new Email(input.Email);
+        var email = input.Email is null ? null : new Email(input.Email);
 
-        var found = await _userRepository.ExistsAsync(name);
+        var found = await _userRepository.ExistsAsync(name, cancellationToken);
 
         if (found)
         {
@@ -41,9 +41,9 @@ public class CreateUserUseCase : TransactionalUseCaseBase<CreateUserInputDTO, Cr
         }
 
         var user = new User(name, email);
-        await _userRepository.AddAsync(user);
+        await _userRepository.AddAsync(user, cancellationToken);
 
-        var result = new CreateUserOutputDTO(user.Id, user.Name.Value, user.EMail.Value, user.Status.ToString());
+        var result = new CreateUserOutputDTO(user.Id, user.Name.Value, user.Email?.Value, user.Status.ToString());
 
         return UseCaseResult<CreateUserOutputDTO>.Success(data: result, "User created");
     }

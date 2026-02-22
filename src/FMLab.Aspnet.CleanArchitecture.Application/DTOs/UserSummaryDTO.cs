@@ -7,5 +7,6 @@ namespace FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 public record UserSummaryDTO(
     int Id,
     string Name,
+    string? Email,
     string Status
     );

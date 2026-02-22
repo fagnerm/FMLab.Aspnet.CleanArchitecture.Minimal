@@ -17,6 +17,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(n => n.Name)
                .HasConversion<NameToStringConverter>()
                .IsRequired();
+        builder.Property(e => e.Email)
+               .HasConversion<EmailToStringConverter>();
         builder.Property(s => s.Status)
                .IsRequired();
     }

@@ -5,6 +5,7 @@
 using FluentValidation;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
 using FMLab.Aspnet.CleanArchitecture.Application.Validations;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +20,14 @@ public static class ApplicationModule
         services.AddScoped<ICreateUserUseCase, CreateUserUseCase>();
         services.AddScoped<IDisableUserUseCase, DisableUserUseCase>();
 
+        services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
+        services.AddScoped<IPatchUserUseCase, PatchUserUseCase>();
+
+        services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+
+
         services.AddScoped<IListUsersUseCase, ListUsersUseCase>();
+        services.AddScoped<IGetUserUseCase, GetUserUseCase>();
 
         return services;
     }

@@ -2,6 +2,6 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
 
-public record CreateUserOutputDTO(int Id, string Name, string? email, string Status);
+public record DeleteUserInputDTO(int Id);

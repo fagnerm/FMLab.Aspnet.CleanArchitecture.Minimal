@@ -21,7 +21,7 @@ public class DisableUserUseCase : TransactionalUseCaseBase<DisableUserInputDTO, 
 
     public override async Task<UseCaseResult<DisableUserOutputDTO>> ExecuteHandlerAsync(DisableUserInputDTO input, CancellationToken cancellationToken)
     {
-        var user = await _repository.GetByIdAsync(input.Id);
+        var user = await _repository.GetByIdAsync(input.Id, cancellationToken);
 
         if (user == null)
         {
@@ -29,7 +29,7 @@ public class DisableUserUseCase : TransactionalUseCaseBase<DisableUserInputDTO, 
         }
 
         user.Deactivate();
-        await _repository.UpdateAsync(user);
+        _repository.Update(user);
 
         return UseCaseResult<DisableUserOutputDTO>.Success();
     }
