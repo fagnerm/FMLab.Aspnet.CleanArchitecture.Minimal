@@ -4,7 +4,6 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Domain.Users;
-using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,22 +29,13 @@ public class UserRepository : IUserRepository
         _dbContext.Remove(user);
     }
 
-    public async Task<bool> ExistsAsync(Name name, CancellationToken token)
-    {
-        var exists = await _dbContext
-                            .Users
-                            .AnyAsync(_ => _.Name == name, token);
-
-        return exists;
-    }
-
     public async Task<User?> GetByIdAsync(int id, CancellationToken token)
     {
-        var User = await _dbContext
+        var user = await _dbContext
                             .Users
-                            .FirstOrDefaultAsync(_ => _.Id == id, token);
+                            .SingleOrDefaultAsync(_ => _.Id == id, token);
 
-        return User;
+        return user;
     }
 
     public User Update(User user)
