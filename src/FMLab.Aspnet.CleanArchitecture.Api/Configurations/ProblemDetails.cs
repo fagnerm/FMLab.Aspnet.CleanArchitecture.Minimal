@@ -10,7 +10,6 @@ public static class ProblemDetails
 {
     public static IServiceCollection AddAppProblemDetails(this IServiceCollection services)
     {
-        services.AddExceptionHandler<DomainExceptionHandler>();
         services.AddExceptionHandler<GenericExceptionHandler>();
         services.AddProblemDetails(options =>
         {

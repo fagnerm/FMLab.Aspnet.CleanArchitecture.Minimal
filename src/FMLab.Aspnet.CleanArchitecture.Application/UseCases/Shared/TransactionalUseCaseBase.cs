@@ -4,6 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases.Shared;
+using FMLab.Aspnet.CleanArchitecture.Domain.Exceptions;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 
@@ -20,14 +21,19 @@ public abstract class TransactionalUseCaseBase<TInput, TOutput> : IUseCase<TInpu
 
     public async Task<Result<TOutput>> ExecuteAsync(TInput input, CancellationToken cancellationToken)
     {
-        var result = await ExecuteHandlerAsync(input, cancellationToken);
-
-        if (result.IsSuccess)
+        try
         {
-            await _unitOfWork.CommitAsync(cancellationToken);
-        }
+            var result = await ExecuteHandlerAsync(input, cancellationToken);
 
-        return result;
+            if (result.IsSuccess)
+                await _unitOfWork.CommitAsync(cancellationToken);
+
+            return result;
+        }
+        catch (DomainException ex)
+        {
+            return Result<TOutput>.Domain(ex.Message);
+        }
     }
 
     public abstract Task<Result<TOutput>> ExecuteHandlerAsync(TInput input, CancellationToken cancellationToken);
