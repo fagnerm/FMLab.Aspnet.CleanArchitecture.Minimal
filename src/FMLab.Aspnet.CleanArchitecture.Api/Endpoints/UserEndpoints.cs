@@ -7,7 +7,6 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FMLab.Aspnet.CleanArchitecture.Api.Endpoints;
@@ -78,9 +77,9 @@ internal static class UserEndpoints
         return output.ToProblemResult();
     }
 
-    private static async Task<IResult> PostUserEndpoint([FromServices] ICreateUserUseCase useCase, [FromQuery] string name, string? email, CancellationToken ct)
+    private static async Task<IResult> PostUserEndpoint([FromServices] ICreateUserUseCase useCase, [FromBody] CreateUserInputRequest body, CancellationToken ct)
     {
-        var input = new CreateUserInputDTO(name, email);
+        var input = new CreateUserInputDTO(body.Name, body.Email);
         var output = await useCase.ExecuteAsync(input, ct);
 
         if (!output.IsSuccess) return output.ToProblemResult();

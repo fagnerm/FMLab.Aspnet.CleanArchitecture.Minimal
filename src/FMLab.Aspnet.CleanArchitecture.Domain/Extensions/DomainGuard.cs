@@ -2,26 +2,28 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
+using FMLab.Aspnet.CleanArchitecture.Domain.Exceptions;
+
 namespace FMLab.Aspnet.CleanArchitecture.Domain.Extensions;
 
 public static class DomainGuard
 {
     public static void Throw(string message, Exception? innerException = null)
     {
-        throw new Exceptions.DomainException(message, innerException);
+        throw new DomainException(message, innerException);
     }
 
     public static void ThrowIfNull(this object obj)
     {
         if (obj is not null) return;
 
-        throw new Exceptions.DomainException($"{nameof(obj)} can't be null");
+        throw new DomainException($"{nameof(obj)} can't be null");
     }
 
     public static void ThrowIfNullOrEmpty(this string obj, string message)
     {
         if (!string.IsNullOrEmpty(obj)) return;
 
-        throw new ArgumentException(message);
+        throw new DomainException(message);
     }
 }

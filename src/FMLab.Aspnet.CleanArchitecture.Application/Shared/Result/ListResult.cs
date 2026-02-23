@@ -4,15 +4,15 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 
-public class PageResult<TItems>
+public class ListResult<TItems>
 {
     public int Page { get; init; }
     public int PageSize { get; init; }
-    public int TotalCount { get; set; }
-    public int TotalPages { get; set; }
+    public int TotalCount { get; init; }
+    public int TotalPages { get; }
     public IReadOnlyCollection<TItems> Items { get; init; }
 
-    public PageResult(IReadOnlyCollection<TItems> items, int page, int pageSize, int totalCount)
+    public ListResult(IReadOnlyCollection<TItems> items, int page, int pageSize, int totalCount)
     {
         Items = items ??= [];
         Page = page;

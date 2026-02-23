@@ -1,6 +1,6 @@
 @FMLab.Aspnet.CleanArchitecture.Api_HostAddress = https://localhost:44356
 
-POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?name=Paloma%20Marinho
+POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?name=Fagner%20Marinho
 
 ###
 
@@ -41,6 +41,6 @@ Content-Type: application/json
   "name": "Fagner"
 }
 
-###
+###tho
 
 DELETE {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1

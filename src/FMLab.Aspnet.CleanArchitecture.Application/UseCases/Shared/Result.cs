@@ -42,7 +42,7 @@ public class Result<TOutput>
 
     public static Result<TOutput> Domain(string? error)
     {
-        return new Result<TOutput>(error, ResultType.Validation);
+        return new Result<TOutput>(error, ResultType.Domain);
     }
 
     public static Result<TOutput> Conflict(string? error)

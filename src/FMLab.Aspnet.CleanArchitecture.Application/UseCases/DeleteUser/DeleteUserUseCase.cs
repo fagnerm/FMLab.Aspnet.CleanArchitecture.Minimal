@@ -7,7 +7,7 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
 public class DeleteUserUseCase : TransactionalUseCaseBase<DeleteUserInputDTO, DeleteUserOutputDTO>, IDeleteUserUseCase
 {

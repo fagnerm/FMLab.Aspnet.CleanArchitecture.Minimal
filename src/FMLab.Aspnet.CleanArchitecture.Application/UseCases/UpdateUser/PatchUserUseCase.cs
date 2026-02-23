@@ -5,7 +5,7 @@
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Domain.Users;
+using FMLab.Aspnet.CleanArchitecture.Entities.Users;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
@@ -16,11 +16,11 @@ public class PatchUserUseCase : UpdateUserUseCase, IPatchUserUseCase
     {
     }
 
-    protected override void MapUserUpdate(UpdateUserInputDTO input, ref User user)
+    protected override Tuple<Name, Email?> MapUserUpdate(UpdateUserInputDTO input, ref User user)
     {
         var name = input.Name is null ? user.Name : new Name(input.Name);
         var email = input.Email is null ? user.Email : new Email(input.Email);
 
-        user.Update(name, email);
+        return Tuple.Create(name, email);
     }
 }

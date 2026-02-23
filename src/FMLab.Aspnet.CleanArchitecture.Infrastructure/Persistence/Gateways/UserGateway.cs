@@ -40,7 +40,7 @@ public class UserGateway : IUserGateway
         return await query.AnyAsync(token);
     }
 
-    public async Task<PageResult<UserSummaryDTO>> ListAsync(ListUsersFilter filter, CancellationToken ct)
+    public async Task<ListResult<UserSummaryDTO>> ListAsync(ListUsersFilter filter, CancellationToken ct)
     {
         var query = _context.Users
                             .AsNoTracking()
@@ -64,7 +64,7 @@ public class UserGateway : IUserGateway
                 ))
             .ToListAsync(ct);
 
-        return new PageResult<UserSummaryDTO>(
+        return new ListResult<UserSummaryDTO>(
             items, filter.Page, filter.PageSize, totalCount);
     }
 

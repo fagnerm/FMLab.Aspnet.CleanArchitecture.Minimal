@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-using FMLab.Aspnet.CleanArchitecture.Domain.Users;
+using FMLab.Aspnet.CleanArchitecture.Entities.Users;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

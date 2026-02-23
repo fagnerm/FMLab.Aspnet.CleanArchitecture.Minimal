@@ -6,7 +6,7 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
-using FMLab.Aspnet.CleanArchitecture.Domain.Users;
+using FMLab.Aspnet.CleanArchitecture.Entities.Users;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
@@ -27,19 +27,19 @@ public class UpdateUserUseCase : TransactionalUseCaseBase<UpdateUserInputDTO, Up
 
         if (user is null) return Result<UpdateUserOutputDTO>.NotFound("User not found");
 
-        MapUserUpdate(input, ref user!);
+        var (name, email) = MapUserUpdate(input, ref user!);
+        user.Update(name, email);
 
         _repository.Update(user);
 
         return Result<UpdateUserOutputDTO>.Success();
     }
 
-    protected virtual void MapUserUpdate(UpdateUserInputDTO input, ref User user)
+    protected virtual Tuple<Name, Email?> MapUserUpdate(UpdateUserInputDTO input, ref User user)
     {
         var name = new Name(input.Name!);
         var email = string.IsNullOrEmpty(input.Email) ? null : new Email(input.Email!);
 
-        user.Update(name, email);
-        _repository.Update(user);
+        return Tuple.Create(name, email);
     }
 }
