@@ -8,21 +8,21 @@ using FMLab.Aspnet.CleanArchitecture.Infrastructure.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddAppSwagger();
+builder.Services.AddAppProblemDetails();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseAppSwagger();
 }
 
 app.UseHttpsRedirection();
 app.UseApplicationEndpoints();
+app.UseAppProblemDetails();
 
 app.Run();

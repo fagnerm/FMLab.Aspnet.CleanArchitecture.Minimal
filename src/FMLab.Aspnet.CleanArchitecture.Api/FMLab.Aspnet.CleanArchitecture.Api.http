@@ -1,6 +1,6 @@
 @FMLab.Aspnet.CleanArchitecture.Api_HostAddress = https://localhost:44356
 
-POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?name=Fagner
+POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?name=Paloma%20Marinho
 
 ###
 
@@ -8,12 +8,39 @@ GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?page=1&pageSize=5
 
 ###
 
-PUT {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1/disable
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1
 
 ###
 
-GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?status=Disabled&page=1&pageSize=5
+POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1/deactivate
 
 ###
 
-GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?status=Enabled&page=1&pageSize=5
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?status=Deactivated&page=1&pageSize=5
+
+###
+
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?status=Active&page=1&pageSize=5
+
+###
+
+PATCH {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1
+Content-Type: application/json
+
+{
+  "name": "Fagner",
+  "email": "fagner@email.com"
+}
+
+###
+
+PUT {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1
+Content-Type: application/json
+
+{
+  "name": "Fagner"
+}
+
+###
+
+DELETE {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1
