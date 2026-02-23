@@ -18,7 +18,7 @@ public abstract class TransactionalUseCaseBase<TInput, TOutput> : IUseCase<TInpu
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<UseCaseResult<TOutput>> ExecuteAsync(TInput input, CancellationToken cancellationToken)
+    public async Task<Result<TOutput>> ExecuteAsync(TInput input, CancellationToken cancellationToken)
     {
         var result = await ExecuteHandlerAsync(input, cancellationToken);
 
@@ -30,5 +30,5 @@ public abstract class TransactionalUseCaseBase<TInput, TOutput> : IUseCase<TInpu
         return result;
     }
 
-    public abstract Task<UseCaseResult<TOutput>> ExecuteHandlerAsync(TInput input, CancellationToken cancellationToken);
+    public abstract Task<Result<TOutput>> ExecuteHandlerAsync(TInput input, CancellationToken cancellationToken);
 }

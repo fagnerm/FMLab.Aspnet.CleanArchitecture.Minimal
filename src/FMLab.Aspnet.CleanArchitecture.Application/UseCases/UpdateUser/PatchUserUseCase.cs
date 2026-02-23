@@ -22,6 +22,5 @@ public class PatchUserUseCase : UpdateUserUseCase, IPatchUserUseCase
         var email = input.Email is null ? user.Email : new Email(input.Email);
 
         user.Update(name, email);
-        _repository.Update(user);
     }
 }

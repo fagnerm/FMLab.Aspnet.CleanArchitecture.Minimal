@@ -19,14 +19,14 @@ public class DeleteUserUseCase : TransactionalUseCaseBase<DeleteUserInputDTO, De
         _repository = repository;
     }
 
-    public override async Task<UseCaseResult<DeleteUserOutputDTO>> ExecuteHandlerAsync(DeleteUserInputDTO input, CancellationToken cancellationToken)
+    public override async Task<Result<DeleteUserOutputDTO>> ExecuteHandlerAsync(DeleteUserInputDTO input, CancellationToken cancellationToken)
     {
         var existingUser = await _repository.GetByIdAsync(input.Id, cancellationToken);
 
-        if (existingUser is null) UseCaseResult<DeleteUserOutputDTO>.Failure(error: "User already exists");
+        if (existingUser is null) return Result<DeleteUserOutputDTO>.NotFound("User not found");
 
         _repository.Delete(existingUser!);
 
-        return UseCaseResult<DeleteUserOutputDTO>.Success(message: "User deleted");
+        return Result<DeleteUserOutputDTO>.Success();
     }
 }

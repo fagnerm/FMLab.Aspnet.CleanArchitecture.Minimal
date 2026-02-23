@@ -4,6 +4,7 @@
 
 using FluentValidation;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
+using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
@@ -14,37 +15,36 @@ namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
 public class CreateUserUseCase : TransactionalUseCaseBase<CreateUserInputDTO, CreateUserOutputDTO>, ICreateUserUseCase
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserRepository _repository;
+    private readonly IUserGateway _gateway;
     private readonly IValidator<CreateUserInputDTO> _validator;
 
-    public CreateUserUseCase(IUnitOfWork unitOfWork, IUserRepository userRepository, IValidator<CreateUserInputDTO> validator)
+    public CreateUserUseCase(IUnitOfWork unitOfWork, IUserRepository userRepository, IUserGateway gateway, IValidator<CreateUserInputDTO> validator)
         : base(unitOfWork)
     {
-        _userRepository = userRepository;
+        _repository = userRepository;
         _validator = validator;
+        _gateway = gateway;
     }
 
-    public override async Task<UseCaseResult<CreateUserOutputDTO>> ExecuteHandlerAsync(CreateUserInputDTO input, CancellationToken cancellationToken)
+    public override async Task<Result<CreateUserOutputDTO>> ExecuteHandlerAsync(CreateUserInputDTO input, CancellationToken cancellationToken)
     {
         var validation = _validator.Validate(input);
         if (!validation.IsValid)
-            return UseCaseResult<CreateUserOutputDTO>.Failure(error: validation.Errors[0].ErrorMessage);
+            return Result<CreateUserOutputDTO>.Validation(error: validation.Errors[0].ErrorMessage);
 
         var name = new Name(input.Name);
         var email = input.Email is null ? null : new Email(input.Email);
 
-        var found = await _userRepository.ExistsAsync(name, cancellationToken);
+        var found = await _gateway.ExistsByKeyAsync(name, email, cancellationToken);
 
-        if (found)
-        {
-            return UseCaseResult<CreateUserOutputDTO>.Failure(error: "User already exists");
-        }
+        if (found) return Result<CreateUserOutputDTO>.Conflict("User already exists");
 
         var user = new User(name, email);
-        await _userRepository.AddAsync(user, cancellationToken);
+        await _repository.AddAsync(user, cancellationToken);
 
         var result = new CreateUserOutputDTO(user.Id, user.Name.Value, user.Email?.Value, user.Status.ToString());
 
-        return UseCaseResult<CreateUserOutputDTO>.Success(data: result, "User created");
+        return Result<CreateUserOutputDTO>.Success(result);
     }
 }

@@ -5,11 +5,6 @@
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases.Shared;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 

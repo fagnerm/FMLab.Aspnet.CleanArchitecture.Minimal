@@ -19,18 +19,18 @@ public class DisableUserUseCase : TransactionalUseCaseBase<DisableUserInputDTO, 
         _repository = repository;
     }
 
-    public override async Task<UseCaseResult<DisableUserOutputDTO>> ExecuteHandlerAsync(DisableUserInputDTO input, CancellationToken cancellationToken)
+    public override async Task<Result<DisableUserOutputDTO>> ExecuteHandlerAsync(DisableUserInputDTO input, CancellationToken cancellationToken)
     {
         var user = await _repository.GetByIdAsync(input.Id, cancellationToken);
 
         if (user == null)
         {
-            return UseCaseResult<DisableUserOutputDTO>.Failure(error: "User not found");
+            return Result<DisableUserOutputDTO>.NotFound("User not found");
         }
 
         user.Deactivate();
         _repository.Update(user);
 
-        return UseCaseResult<DisableUserOutputDTO>.Success();
+        return Result<DisableUserOutputDTO>.Success();
     }
 }

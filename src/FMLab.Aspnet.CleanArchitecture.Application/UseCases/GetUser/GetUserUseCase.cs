@@ -19,15 +19,15 @@ public class GetUserUseCase : IUseCase<GetUserInputDTO, UserSummaryDTO>, IGetUse
         _gateway = gateway;
     }
 
-    public async Task<UseCaseResult<UserSummaryDTO>> ExecuteAsync(GetUserInputDTO input, CancellationToken cancellationToken)
+    public async Task<Result<UserSummaryDTO>> ExecuteAsync(GetUserInputDTO input, CancellationToken cancellationToken)
     {
         var user = await _gateway.ListUserByIdAsync(input.Id, cancellationToken);
 
         if (user == null)
         {
-            return UseCaseResult<UserSummaryDTO>.Failure(error: "User not found");
+            return Result<UserSummaryDTO>.NotFound("User not found");
         }
 
-        return UseCaseResult<UserSummaryDTO>.Success(user);
+        return Result<UserSummaryDTO>.Success(user);
     }
 }

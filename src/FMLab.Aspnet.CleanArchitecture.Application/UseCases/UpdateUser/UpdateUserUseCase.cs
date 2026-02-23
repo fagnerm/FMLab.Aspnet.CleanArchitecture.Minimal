@@ -21,23 +21,23 @@ public class UpdateUserUseCase : TransactionalUseCaseBase<UpdateUserInputDTO, Up
         _repository = repository;
     }
 
-    public override async Task<UseCaseResult<UpdateUserOutputDTO>> ExecuteHandlerAsync(UpdateUserInputDTO input, CancellationToken token)
+    public override async Task<Result<UpdateUserOutputDTO>> ExecuteHandlerAsync(UpdateUserInputDTO input, CancellationToken token)
     {
         var user = await _repository.GetByIdAsync(input.Id, token);
 
-        if (user is null) UseCaseResult<UpdateUserOutputDTO>.Failure(error: "User not found");
+        if (user is null) return Result<UpdateUserOutputDTO>.NotFound("User not found");
 
         MapUserUpdate(input, ref user!);
 
         _repository.Update(user);
 
-        return UseCaseResult<UpdateUserOutputDTO>.Success();
+        return Result<UpdateUserOutputDTO>.Success();
     }
 
     protected virtual void MapUserUpdate(UpdateUserInputDTO input, ref User user)
     {
         var name = new Name(input.Name!);
-        var email = new Email(input.Email!);
+        var email = string.IsNullOrEmpty(input.Email) ? null : new Email(input.Email!);
 
         user.Update(name, email);
         _repository.Update(user);
