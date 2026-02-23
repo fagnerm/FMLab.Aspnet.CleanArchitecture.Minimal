@@ -16,7 +16,7 @@ public class Name : IEquatable<Name>, IComparable<Name>
         name.ThrowIfNullOrEmpty("Must inform a name");
         if (!IsValid(name))
         {
-            Extensions.DomainGuard.Throw("Must inform a valid name");
+            DomainGuard.Throw("Must inform a valid name");
         }
 
         Value = name;
@@ -29,7 +29,7 @@ public class Name : IEquatable<Name>, IComparable<Name>
 
     private bool IsValid(string name)
     {
-        var pattern = @"^[\p{L}]+$";
+        var pattern = @"^[\p{L}\p{Zs}]+$";
         return Regex.IsMatch(name, pattern);
 
     }
@@ -38,4 +38,14 @@ public class Name : IEquatable<Name>, IComparable<Name>
     {
         return string.Compare(Value, other?.Value, StringComparison.Ordinal);
     }
+
+    public static bool operator ==(Name left, Name right)
+    {
+        if (left is null) return right is null;
+        return left.Value.Equals(right?.Value);
+    }
+
+    public static bool operator !=(Name left, Name right) => !(left == right);
+
+    public override int GetHashCode() => Value.GetHashCode();
 }
