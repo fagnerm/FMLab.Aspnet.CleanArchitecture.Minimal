@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
 
 public record ListUsersOutputDTO(
     IReadOnlyCollection<UserSummaryDTO> Items,

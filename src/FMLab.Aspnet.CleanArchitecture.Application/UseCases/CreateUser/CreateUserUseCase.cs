@@ -8,10 +8,10 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
-using FMLab.Aspnet.CleanArchitecture.Entities.Users;
+using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
 
 public class CreateUserUseCase : TransactionalUseCaseBase<CreateUserInputDTO, CreateUserOutputDTO>, ICreateUserUseCase
 {
@@ -36,7 +36,7 @@ public class CreateUserUseCase : TransactionalUseCaseBase<CreateUserInputDTO, Cr
         var name = new Name(input.Name);
         var email = input.Email is null ? null : new Email(input.Email);
 
-        var found = await _gateway.ExistsByKeyAsync(name, email, cancellationToken);
+        var found = await _gateway.ExistsByKeyAsync(name.Value, email?.Value, cancellationToken);
 
         if (found) return Result<CreateUserOutputDTO>.Conflict("User already exists");
 

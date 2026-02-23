@@ -5,8 +5,12 @@
 using FMLab.Aspnet.CleanArchitecture.Api.Endpoints.Helpers;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.GetUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FMLab.Aspnet.CleanArchitecture.Api.Endpoints;
@@ -64,9 +68,7 @@ internal static class UserEndpoints
     {
         var output = await useCase.ExecuteAsync(input, token);
 
-        return Result<ListUsersOutputDTO>
-                    .Success(output)
-                    .ToProblemResult();
+        return output.ToProblemResult();
     }
 
     private static async Task<IResult> ListUserEndpoint([FromServices] IGetUserUseCase useCase, int id, CancellationToken token)

@@ -6,7 +6,7 @@ using FMLab.Aspnet.CleanArchitecture.Domain.Enums;
 using FMLab.Aspnet.CleanArchitecture.Domain.Extensions;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
-namespace FMLab.Aspnet.CleanArchitecture.Entities.Users;
+namespace FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 
 public class User
 {

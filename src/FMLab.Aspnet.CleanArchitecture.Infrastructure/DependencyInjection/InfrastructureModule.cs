@@ -5,28 +5,35 @@
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
+using FMLab.Aspnet.CleanArchitecture.Infrastructure.ExternalServices;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.DependencyInjection;
 
 public static class InfrastructureModule
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IHostEnvironment environment)
     {
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.LogTo(Console.WriteLine, LogLevel.Information)
-                   .EnableSensitiveDataLogging();
+            options.UseInMemoryDatabase("clean-arch")
+                   .LogTo(Console.WriteLine, LogLevel.Information);
+
+            if (environment.IsDevelopment())
+                options.EnableSensitiveDataLogging();
         });
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserGateway, UserGateway>();
+        services.AddScoped<IEmailService, EmailService>();
 
         return services;
     }

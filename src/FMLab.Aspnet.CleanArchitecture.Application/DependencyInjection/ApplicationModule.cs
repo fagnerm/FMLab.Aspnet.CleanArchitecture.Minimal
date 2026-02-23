@@ -5,7 +5,11 @@
 using FluentValidation;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.GetUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 using FMLab.Aspnet.CleanArchitecture.Application.Validations;
 using Microsoft.Extensions.DependencyInjection;
 

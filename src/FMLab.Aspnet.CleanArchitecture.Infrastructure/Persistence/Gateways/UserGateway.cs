@@ -4,9 +4,8 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,21 +20,17 @@ public class UserGateway : IUserGateway
         _context = context;
     }
 
-    public async Task<bool> ExistsByKeyAsync(Name? name, Email? email, CancellationToken token)
+    public async Task<bool> ExistsByKeyAsync(string? name, string? email, CancellationToken token)
     {
         var query = _context.Users
                              .AsNoTracking()
                              .AsQueryable();
 
         if (name != null)
-        {
-            query = query.Where(u => u.Name == name);
-        }
+            query = query.Where(u => u.Name.Value == name);
 
         if (email != null)
-        {
-            query = query.Where(u => u.Email == email);
-        }
+            query = query.Where(u => u.Email.Value == email);
 
         return await query.AnyAsync(token);
     }

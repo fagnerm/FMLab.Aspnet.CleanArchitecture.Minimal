@@ -6,10 +6,10 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
-using FMLab.Aspnet.CleanArchitecture.Entities.Users;
+using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 
 public class UpdateUserUseCase : TransactionalUseCaseBase<UpdateUserInputDTO, UpdateUserOutputDTO>, IUpdateUserUseCase
 {

@@ -9,7 +9,7 @@ using FMLab.Aspnet.CleanArchitecture.Infrastructure.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Environment);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAppSwagger();
 builder.Services.AddAppProblemDetails();

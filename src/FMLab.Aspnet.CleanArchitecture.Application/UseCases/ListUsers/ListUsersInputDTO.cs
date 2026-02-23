@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Domain.Enums;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
 
 public record ListUsersInputDTO(
     UserStatus? Status,

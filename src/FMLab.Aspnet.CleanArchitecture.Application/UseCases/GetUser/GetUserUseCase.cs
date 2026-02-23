@@ -5,12 +5,11 @@
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases.Shared;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.GetUser;
 
-public class GetUserUseCase : IUseCase<GetUserInputDTO, UserSummaryDTO>, IGetUserUseCase
+public class GetUserUseCase : IGetUserUseCase
 {
     private readonly IUserGateway _gateway;
 

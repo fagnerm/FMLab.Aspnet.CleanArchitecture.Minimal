@@ -7,7 +7,7 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
+namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableUser;
 
 public class DisableUserUseCase : TransactionalUseCaseBase<DisableUserInputDTO, DisableUserOutputDTO>, IDisableUserUseCase
 {
