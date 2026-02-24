@@ -4,8 +4,8 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +26,7 @@ public class UserGateway : IUserGateway
                              .AsNoTracking()
                              .AsQueryable()
                              .AnyAsync(u => (name != null && u.Name.Value == name) ||
-                                            (email != null && u.Email.Value == email), cancellationToken);
+                                            (email != null && u.Email!.Value == email), cancellationToken);
     }
 
     public async Task<CollectionResult<UserSummaryDTO>> ListAsync(ListUsersFilter filter, CancellationToken cancellationToken)
