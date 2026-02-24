@@ -12,8 +12,16 @@
   <ItemGroup>
     <PackageReference Include="coverlet.collector"/>
     <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing"/>
+    <PackageReference Include="NSubstitute"/>
     <PackageReference Include="xunit"/>
     <PackageReference Include="xunit.runner.visualstudio"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Domain\FMLab.Aspnet.CleanArchitecture.Domain.csproj" />
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Application\FMLab.Aspnet.CleanArchitecture.Application.csproj" />
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Api\FMLab.Aspnet.CleanArchitecture.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
