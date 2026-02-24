@@ -4,7 +4,6 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases;
 

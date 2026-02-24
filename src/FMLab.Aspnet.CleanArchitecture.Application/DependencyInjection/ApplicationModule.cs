@@ -3,7 +3,6 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FluentValidation;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableUser;
