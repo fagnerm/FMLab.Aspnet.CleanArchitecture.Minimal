@@ -47,6 +47,6 @@ Content-Type: application/json
   "name": "Fagner"
 }
 
-###tho
+###
 
 DELETE {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1
