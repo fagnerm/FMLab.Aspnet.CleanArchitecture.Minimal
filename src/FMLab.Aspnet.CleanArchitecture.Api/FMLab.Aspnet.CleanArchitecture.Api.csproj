@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Application\FMLab.Aspnet.CleanArchitecture.Application.csproj" />
     <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Infrastructure\FMLab.Aspnet.CleanArchitecture.Infrastructure.csproj" />
   </ItemGroup>
 
