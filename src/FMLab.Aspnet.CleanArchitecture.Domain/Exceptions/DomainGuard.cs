@@ -2,9 +2,12 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-using FMLab.Aspnet.CleanArchitecture.Domain.Exceptions;
 
-namespace FMLab.Aspnet.CleanArchitecture.Domain.Extensions;
+// API - Clean architecture boilerplate
+// Copyright (c) 2026 Fagner Marinho 
+// Licensed under the MIT License. See LICENSE file in the project root for details.
+
+namespace FMLab.Aspnet.CleanArchitecture.Domain.Exceptions;
 
 public static class DomainGuard
 {
