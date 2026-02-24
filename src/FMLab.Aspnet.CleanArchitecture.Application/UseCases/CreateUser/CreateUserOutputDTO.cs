@@ -4,4 +4,4 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
 
-public record CreateUserOutputDTO(int Id, string Name, string? email, string Status);
+public record CreateUserOutputDTO(int Id, string Name, string? Email, string Status);
