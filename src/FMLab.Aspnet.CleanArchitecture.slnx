@@ -7,4 +7,5 @@
   <Project Path="FMLab.Aspnet.CleanArchitecture.Application/FMLab.Aspnet.CleanArchitecture.Application.csproj" />
   <Project Path="FMLab.Aspnet.CleanArchitecture.Domain/FMLab.Aspnet.CleanArchitecture.Domain.csproj" />
   <Project Path="FMLab.Aspnet.CleanArchitecture.Infrastructure/FMLab.Aspnet.CleanArchitecture.Infrastructure.csproj" />
+  <Project Path="FMLab.Aspnet.CleanArchitecture.Tests/FMLab.Aspnet.CleanArchitecture.Tests.csproj" Id="8605a9f2-9acc-4f33-8348-4f7806de2e2c" />
 </Solution>
