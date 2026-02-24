@@ -5,11 +5,10 @@
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
 using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Gateways;
 
@@ -22,16 +21,16 @@ public class UserGateway : IUserGateway
         _context = context;
     }
 
-    public async Task<bool> ExistsByKeyAsync(string? name, string? email, CancellationToken token)
+    public async Task<bool> ExistsByKeyAsync(string? name, string? email, CancellationToken cancellationToken)
     {
         return await _context.Users
                              .AsNoTracking()
                              .AsQueryable()
                              .AnyAsync(u => (name != null && u.Name.Value == name) ||
-                                            (email != null && u.Email.Value == email), token);
+                                            (email != null && u.Email.Value == email), cancellationToken);
     }
 
-    public async Task<CollectionResult<UserSummaryDTO>> ListAsync(ListUsersFilter filter, CancellationToken ct)
+    public async Task<CollectionResult<UserSummaryDTO>> ListAsync(ListUsersFilter filter, CancellationToken cancellationToken)
     {
         var query = _context.Users
                             .AsNoTracking()
@@ -42,7 +41,7 @@ public class UserGateway : IUserGateway
             query = query.Where(t => t.Status == filter.Status.Value);
         }
 
-        var totalCount = await query.CountAsync();
+        var totalCount = await query.CountAsync(cancellationToken);
 
         var items = await query.OrderByDescending(t => t.Name)
             .Skip((filter.Page - 1) * filter.PageSize)
@@ -53,19 +52,19 @@ public class UserGateway : IUserGateway
                 t.Email!.Value,
                 t.Status.ToString()
                 ))
-            .ToListAsync(ct);
+            .ToListAsync(cancellationToken);
 
         return new CollectionResult<UserSummaryDTO>(
             items, filter.Page, filter.PageSize, totalCount);
     }
 
-    public async Task<UserSummaryDTO?> ListUserByIdAsync(int id, CancellationToken token)
+    public async Task<UserSummaryDTO?> ListUserByIdAsync(int id, CancellationToken cancellationToken)
     {
         var query = _context.Users
                             .AsNoTracking()
                             .AsQueryable();
 
-        var user = await query.SingleOrDefaultAsync(u => u.Id == id, token);
+        var user = await query.SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
         if (user is null)
         {

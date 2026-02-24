@@ -4,13 +4,13 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 
 public interface IUserGateway
 {
-    Task<CollectionResult<UserSummaryDTO>> ListAsync(ListUsersFilter filter, CancellationToken token);
-    Task<UserSummaryDTO?> ListUserByIdAsync(int id, CancellationToken token);
-    Task<bool> ExistsByKeyAsync(string? name, string? email, CancellationToken token);
+    Task<CollectionResult<UserSummaryDTO>> ListAsync(ListUsersFilter filter, CancellationToken cancellationToken);
+    Task<UserSummaryDTO?> ListUserByIdAsync(int id, CancellationToken cancellationToken);
+    Task<bool> ExistsByKeyAsync(string? name, string? email, CancellationToken cancellationToken);
 }

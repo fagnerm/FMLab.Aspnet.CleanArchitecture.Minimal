@@ -18,9 +18,9 @@ public class UserRepository : IUserRepository
         _dbContext = context;
     }
 
-    public async Task AddAsync(User User, CancellationToken token)
+    public async Task AddAsync(User User, CancellationToken cancellationToken)
     {
-        await _dbContext.AddAsync(User, token)
+        await _dbContext.AddAsync(User, cancellationToken)
                         .ConfigureAwait(false);
     }
 
@@ -29,11 +29,11 @@ public class UserRepository : IUserRepository
         _dbContext.Remove(user);
     }
 
-    public async Task<User?> GetByIdAsync(int id, CancellationToken token)
+    public async Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
         var user = await _dbContext
                             .Users
-                            .SingleOrDefaultAsync(_ => _.Id == id, token);
+                            .SingleOrDefaultAsync(_ => _.Id == id, cancellationToken);
 
         return user;
     }
