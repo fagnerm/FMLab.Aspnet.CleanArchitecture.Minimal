@@ -26,3 +26,5 @@ app.UseApplicationEndpoints();
 app.UseAppProblemDetails();
 
 app.Run();
+
+public partial class Program { }

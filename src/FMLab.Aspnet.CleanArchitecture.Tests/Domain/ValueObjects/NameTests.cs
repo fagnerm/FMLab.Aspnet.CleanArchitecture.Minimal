@@ -9,8 +9,6 @@ namespace FMLab.Aspnet.CleanArchitecture.Tests.Domain.ValueObjects;
 
 public class NameTests
 {
-    // ── Construction ─────────────────────────────────────────────────────────
-
     [Theory]
     [InlineData("John")]
     [InlineData("Mary Jane")]
@@ -31,22 +29,18 @@ public class NameTests
         Assert.Equal("Must inform a name", ex.Message);
     }
 
-    // ── Validation (regex: ^[\p{L}\p{Zs}]+$) ────────────────────────────────
-
     [Theory]
-    [InlineData("John123")]     // digits not allowed
-    [InlineData("John@Doe")]    // special char not allowed
-    [InlineData("John-Doe")]    // hyphen not a letter or space separator
-    [InlineData("John_Doe")]    // underscore not allowed
-    [InlineData("1234")]        // only digits
+    [InlineData("John123")]
+    [InlineData("John@Doe")]
+    [InlineData("John-Doe")]
+    [InlineData("John_Doe")]
+    [InlineData("1234")]
     public void Constructor_WithInvalidCharacters_ThrowsDomainException(string invalidName)
     {
         var ex = Assert.Throws<DomainException>(() => new Name(invalidName));
 
         Assert.Equal("Must inform a valid name", ex.Message);
     }
-
-    // ── Equality ─────────────────────────────────────────────────────────────
 
     [Fact]
     public void EqualityOperator_SameValue_ReturnsTrue()
@@ -92,8 +86,6 @@ public class NameTests
         Assert.False(a.Equals(null));
     }
 
-    // ── CompareTo ────────────────────────────────────────────────────────────
-
     [Fact]
     public void CompareTo_SameValue_ReturnsZero()
     {
@@ -111,8 +103,6 @@ public class NameTests
         Assert.True(a.CompareTo(null) > 0);
     }
 
-    // ── GetHashCode ──────────────────────────────────────────────────────────
-
     [Fact]
     public void GetHashCode_SameValue_ReturnsSameHash()
     {
@@ -121,8 +111,6 @@ public class NameTests
 
         Assert.Equal(a.GetHashCode(), b.GetHashCode());
     }
-
-    // ── ToString ─────────────────────────────────────────────────────────────
 
     [Fact]
     public void ToString_ReturnsValue()
