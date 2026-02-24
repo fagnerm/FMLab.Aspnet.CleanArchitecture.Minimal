@@ -55,4 +55,6 @@ public class Email : IEquatable<Email>
     public static bool operator !=(Email left, Email right) => !(left == right);
 
     public override int GetHashCode() => Value.GetHashCode();
+
+    public override string ToString() => Value.ToString();
 }

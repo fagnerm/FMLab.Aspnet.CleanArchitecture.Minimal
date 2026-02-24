@@ -48,4 +48,6 @@ public class Name : IEquatable<Name>, IComparable<Name>
     public static bool operator !=(Name left, Name right) => !(left == right);
 
     public override int GetHashCode() => Value.GetHashCode();
+
+    public override string ToString() => Value.ToString();
 }
