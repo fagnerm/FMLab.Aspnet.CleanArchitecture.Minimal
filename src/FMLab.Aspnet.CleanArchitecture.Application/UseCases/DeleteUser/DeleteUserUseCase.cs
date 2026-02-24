@@ -4,8 +4,9 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
-using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases.Shared;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 

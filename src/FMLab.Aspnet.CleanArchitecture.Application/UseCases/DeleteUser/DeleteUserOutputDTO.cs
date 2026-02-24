@@ -4,4 +4,4 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 
-public record DeleteUserOutputDTO(int Id);
+public record DeleteUserOutputDTO();

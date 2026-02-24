@@ -3,17 +3,17 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FMLab.Aspnet.CleanArchitecture.Api.Endpoints.Helpers;
-using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableUser;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.GetUser;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FMLab.Aspnet.CleanArchitecture.Api.Endpoints;
+namespace FMLab.Aspnet.CleanArchitecture.Api.Endpoints.Users;
 
 internal static class UserEndpoints
 {

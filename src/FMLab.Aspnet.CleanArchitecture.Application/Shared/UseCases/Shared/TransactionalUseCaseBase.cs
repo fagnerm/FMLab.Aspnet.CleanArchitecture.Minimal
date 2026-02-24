@@ -3,10 +3,10 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
-using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases.Shared;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 using FMLab.Aspnet.CleanArchitecture.Domain.Exceptions;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
+namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases.Shared;
 
 public abstract class TransactionalUseCaseBase<TInput, TOutput> : IUseCase<TInput, TOutput>
     where TInput : class

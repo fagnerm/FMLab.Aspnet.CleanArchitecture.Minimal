@@ -4,8 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
-using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.GetUser;
 

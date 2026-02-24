@@ -3,9 +3,8 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
-using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 
-namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence;
+namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 
 public class UnitOfWork : IUnitOfWork
 {

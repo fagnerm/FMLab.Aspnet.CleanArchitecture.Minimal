@@ -3,9 +3,7 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
-using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.UseCases;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.Shared;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
 

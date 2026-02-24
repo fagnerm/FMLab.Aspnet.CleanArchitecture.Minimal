@@ -6,7 +6,6 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.ExternalServices;
-using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Repositories;
