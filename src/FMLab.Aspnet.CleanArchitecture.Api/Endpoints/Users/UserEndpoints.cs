@@ -71,7 +71,7 @@ internal static class UserEndpoints
         return output.ToProblemResult();
     }
 
-    private static async Task<IResult> ListUserEndpoint([FromServices] IGetUserUseCase useCase, [FromRoute]int id, CancellationToken token)
+    private static async Task<IResult> ListUserEndpoint([FromServices] IGetUserUseCase useCase, [FromRoute] int id, CancellationToken token)
     {
         var input = new GetUserInputDTO(id);
         var output = await useCase.ExecuteAsync(input, token);

@@ -4,9 +4,8 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
-using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
