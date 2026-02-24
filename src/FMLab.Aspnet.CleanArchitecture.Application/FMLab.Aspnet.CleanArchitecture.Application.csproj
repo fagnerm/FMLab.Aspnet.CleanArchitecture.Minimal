@@ -15,4 +15,10 @@
     <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Domain\FMLab.Aspnet.CleanArchitecture.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>FMLab.Aspnet.CleanArchitecture.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>
