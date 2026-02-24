@@ -4,7 +4,8 @@ POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users
 Content-Type: application/json
 
 {
-  "name": "Tânia Marinho"
+  "name": "Fagner Marinho",
+  "email": "fagner@email.com"
 }
 
 ###
@@ -21,11 +22,11 @@ POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users/1/deactivate
 
 ###
 
-GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?status=Deactivated&page=1&pageSize=5
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?status=Deactivated
 
 ###
 
-GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?status=Active&page=1&pageSize=5
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?status=Active
 
 ###
 
