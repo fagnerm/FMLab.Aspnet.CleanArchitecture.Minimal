@@ -4,12 +4,12 @@ POST {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users
 Content-Type: application/json
 
 {
-  "name": "Fagner Marinho"
+  "name": "Tânia Marinho"
 }
 
 ###
 
-GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?page=1&pageSize=5
+GET {{FMLab.Aspnet.CleanArchitecture.Api_HostAddress}}/Users?page=2&pageSize=2
 
 ###
 

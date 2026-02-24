@@ -20,9 +20,9 @@ internal static class UserEndpoints
     internal static void MapUser(WebApplication app)
     {
         app.MapGet("/users", ListAllUsersEndpoint)
-    .WithTags("Users")
-    .Produces(StatusCodes.Status200OK)
-    .WithOpenApi();
+            .WithTags("Users")
+            .Produces(StatusCodes.Status200OK)
+            .WithOpenApi();
 
         app.MapGet("/users/{id}", ListUserEndpoint)
             .WithTags("Users")
@@ -71,7 +71,7 @@ internal static class UserEndpoints
         return output.ToProblemResult();
     }
 
-    private static async Task<IResult> ListUserEndpoint([FromServices] IGetUserUseCase useCase, int id, CancellationToken token)
+    private static async Task<IResult> ListUserEndpoint([FromServices] IGetUserUseCase useCase, [FromRoute]int id, CancellationToken token)
     {
         var input = new GetUserInputDTO(id);
         var output = await useCase.ExecuteAsync(input, token);
