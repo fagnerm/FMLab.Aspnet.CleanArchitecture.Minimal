@@ -11,7 +11,7 @@ public static class Extensions
     public static IResult ToProblemResult<T>(this Result<T> result, ResultType? @default = null)
     where T : class
     {
-        var type = @default.HasValue ? @default : result.Type;
+        var type = result.IsSuccess && @default.HasValue ? @default : result.Type;
 
         return type switch
         {
