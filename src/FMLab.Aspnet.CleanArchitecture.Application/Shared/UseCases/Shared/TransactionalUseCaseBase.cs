@@ -6,7 +6,7 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 using FMLab.Aspnet.CleanArchitecture.Domain.Exceptions;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases.Shared;
+namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases;
 
 public abstract class TransactionalUseCaseBase<TInput, TOutput> : IUseCase<TInput, TOutput>
     where TInput : class

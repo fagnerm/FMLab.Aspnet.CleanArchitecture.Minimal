@@ -7,7 +7,7 @@ using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases.Shared;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 

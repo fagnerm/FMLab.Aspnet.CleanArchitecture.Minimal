@@ -5,7 +5,7 @@
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Filter;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases.Shared;
+namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases;
 
 public abstract class CollectionUseCaseBase<TInput, TOutput, TItem> : ICollectionUseCase<TInput, TOutput, TItem>
     where TInput : PaginationFilter
