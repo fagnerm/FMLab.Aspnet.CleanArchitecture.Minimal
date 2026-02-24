@@ -4,7 +4,6 @@
 
 using FMLab.Aspnet.CleanArchitecture.Api.Endpoints.Helpers;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DeleteUser;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableUser;
@@ -64,59 +63,59 @@ internal static class UserEndpoints
             .WithOpenApi();
     }
 
-    private static async Task<IResult> ListAllUsersEndpoint([FromServices] IListUsersUseCase useCase, [AsParameters] ListUsersInputDTO input, CancellationToken token)
+    private static async Task<IResult> ListAllUsersEndpoint([FromServices] IListUsersUseCase useCase, [AsParameters] ListUsersInputDTO input, CancellationToken cancellationToken)
     {
-        var output = await useCase.ExecuteAsync(input, token);
+        var output = await useCase.ExecuteAsync(input, cancellationToken);
 
         return output.ToProblemResult();
     }
 
-    private static async Task<IResult> ListUserEndpoint([FromServices] IGetUserUseCase useCase, [FromRoute] int id, CancellationToken token)
+    private static async Task<IResult> ListUserEndpoint([FromServices] IGetUserUseCase useCase, [FromRoute] int id, CancellationToken cancellationToken)
     {
         var input = new GetUserInputDTO(id);
-        var output = await useCase.ExecuteAsync(input, token);
+        var output = await useCase.ExecuteAsync(input, cancellationToken);
 
         return output.ToProblemResult();
     }
 
-    private static async Task<IResult> PostUserEndpoint([FromServices] ICreateUserUseCase useCase, [FromBody] CreateUserInputRequest body, CancellationToken ct)
+    private static async Task<IResult> PostUserEndpoint([FromServices] ICreateUserUseCase useCase, [FromBody] CreateUserInputRequest body, CancellationToken cancellationToken)
     {
         var input = new CreateUserInputDTO(body.Name, body.Email);
-        var output = await useCase.ExecuteAsync(input, ct);
+        var output = await useCase.ExecuteAsync(input, cancellationToken);
 
         if (!output.IsSuccess) return output.ToProblemResult();
 
         return Results.Created($"/users/{output.Data?.Id}", output.Data);
     }
 
-    private static async Task<IResult> DisableUserEndpoint([FromServices] IDisableUserUseCase useCase, [FromRoute] int id, CancellationToken ct)
+    private static async Task<IResult> DisableUserEndpoint([FromServices] IDisableUserUseCase useCase, [FromRoute] int id, CancellationToken cancellationToken)
     {
         var input = new DisableUserInputDTO(id);
-        var output = await useCase.ExecuteAsync(input, ct);
+        var output = await useCase.ExecuteAsync(input, cancellationToken);
 
         return output.ToProblemResult(ResultType.NoContent);
     }
 
-    private static async Task<IResult> PutUserEndpoint([FromServices] IUpdateUserUseCase useCase, [FromRoute] int id, [FromBody] UpdateUserInputRequest body, CancellationToken ct)
+    private static async Task<IResult> PutUserEndpoint([FromServices] IUpdateUserUseCase useCase, [FromRoute] int id, [FromBody] UpdateUserInputRequest body, CancellationToken cancellationToken)
     {
         var input = new UpdateUserInputDTO(id, body.Name, body.Email);
-        var output = await useCase.ExecuteAsync(input, ct);
+        var output = await useCase.ExecuteAsync(input, cancellationToken);
 
         return output.ToProblemResult();
     }
 
-    private static async Task<IResult> PatchUserEndpoint([FromServices] IPatchUserUseCase useCase, [FromRoute] int id, [FromBody] UpdateUserInputRequest body, CancellationToken ct)
+    private static async Task<IResult> PatchUserEndpoint([FromServices] IPatchUserUseCase useCase, [FromRoute] int id, [FromBody] UpdateUserInputRequest body, CancellationToken cancellationToken)
     {
         var input = new UpdateUserInputDTO(id, body.Name, body.Email);
-        var output = await useCase.ExecuteAsync(input, ct);
+        var output = await useCase.ExecuteAsync(input, cancellationToken);
 
         return output.ToProblemResult();
     }
 
-    private static async Task<IResult> DeleteUserEndpoint([FromServices] IDeleteUserUseCase useCase, [FromRoute] int id, CancellationToken ct)
+    private static async Task<IResult> DeleteUserEndpoint([FromServices] IDeleteUserUseCase useCase, [FromRoute] int id, CancellationToken cancellationToken)
     {
         var input = new DeleteUserInputDTO(id);
-        var output = await useCase.ExecuteAsync(input, ct);
+        var output = await useCase.ExecuteAsync(input, cancellationToken);
 
         return output.ToProblemResult(ResultType.NoContent);
     }
