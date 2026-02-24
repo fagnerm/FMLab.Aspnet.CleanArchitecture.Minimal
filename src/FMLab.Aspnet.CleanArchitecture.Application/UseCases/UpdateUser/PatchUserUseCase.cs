@@ -31,6 +31,8 @@ public class PatchUserUseCase : TransactionalUseCaseBase<UpdateUserInputDTO, Upd
 
         _repository.Update(user);
 
-        return Result<UpdateUserOutputDTO>.Success();
+        var result = new UpdateUserOutputDTO(user.Id, user.Name.Value, user.Email?.Value);
+
+        return Result<UpdateUserOutputDTO>.Success(result);
     }
 }
