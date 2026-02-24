@@ -13,6 +13,7 @@
     <PackageReference Include="coverlet.collector" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
     <PackageReference Include="NSubstitute" />
     <PackageReference Include="TngTech.ArchUnitNET.xUnit" />
     <PackageReference Include="xunit" />
@@ -23,6 +24,7 @@
     <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Domain\FMLab.Aspnet.CleanArchitecture.Domain.csproj" />
     <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Application\FMLab.Aspnet.CleanArchitecture.Application.csproj" />
     <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Api\FMLab.Aspnet.CleanArchitecture.Api.csproj" />
+    <ProjectReference Include="..\FMLab.Aspnet.CleanArchitecture.Infrastructure\FMLab.Aspnet.CleanArchitecture.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -26,8 +26,8 @@ public class ListUsersUseCaseTests
     {
         var items = new List<UserSummaryDTO>
         {
-            new UserSummaryDTO(1, "Fagner", "fagner@example.com", "Active"),
-            new UserSummaryDTO(2, "John", null, "Deactivated"),
+            new(1, "Fagner", "fagner@example.com", "Active"),
+            new(2, "John", null, "Deactivated"),
         };
         var collection = new CollectionResult<UserSummaryDTO>(items, page: 1, pageSize: 20, totalItems: 2);
         _gateway.ListAsync(Arg.Any<ListUsersFilter>(), Arg.Any<CancellationToken>()).Returns(collection);
