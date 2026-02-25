@@ -8,4 +8,4 @@ using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
 
 public record ListUsersOutputDTO(IReadOnlyCollection<UserSummaryDTO> Items, int Page, int PageSize, int TotalItems)
-    : CollectionResult<UserSummaryDTO>(Items, Page, PageSize, TotalItems);
+    : CollectionResult<UserSummaryDTO>(Items, Page, PageSize, TotalItems), IResultData;

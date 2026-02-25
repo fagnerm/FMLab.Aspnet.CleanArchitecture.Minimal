@@ -6,14 +6,17 @@ namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 
 public class Result
 {
+
+    private IResultData? _data;
+
     public bool IsSuccess { get; protected set; }
     public string? Error { get; protected set; }
-    public object Data { get; protected set; }
     public ResultType Type { get; protected set; }
 
     private Result(ResultType type = ResultType.Success)
     {
         Type = type;
+        _data = default!;
     }
 
     private Result(string? error, ResultType type)
@@ -21,14 +24,15 @@ public class Result
         IsSuccess = false;
         Error = error;
         Type = type;
+        _data = default!;
     }
 
-    public static Result Success<TOutput>(TOutput? data = default)
+    public static Result Success(IResultData? data = default)
     {
         return new Result(ResultType.Success)
         {
             IsSuccess = true,
-            Data = data
+            _data = data
         };
     }
 
@@ -52,8 +56,23 @@ public class Result
         return new Result(error, ResultType.Conflict);
     }
 
+    public TOutput Data<TOutput>()
+        where TOutput : IResultData
+    {
+        try
+        {
+            return (TOutput)_data!;
+        }
+        catch
+        {
+            return default!;
+        }
+    }
+
 }
-     
+
+public interface IResultData { }
+
 
 public enum ResultType
 {

@@ -31,6 +31,6 @@ public class DisableUserUseCase : TransactionalUseCaseBase<DisableUserInputDTO, 
         user.Deactivate();
         _repository.Update(user);
 
-        return Result<DisableUserOutputDTO>.Success();
+        return Result.Success();
     }
 }

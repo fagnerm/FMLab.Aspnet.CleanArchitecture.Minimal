@@ -85,7 +85,8 @@ internal static class UserEndpoints
 
         if (!output.IsSuccess) return output.ToProblemResult();
 
-        return Results.Created($"/users/{output.Data?.Id}", output.Data);
+        var result = output.Data<CreateUserOutputDTO>();
+        return Results.Created($"/users/{result?.Id}", result);
     }
 
     private static async Task<IResult> DisableUserEndpoint([FromServices] IDisableUserUseCase useCase, [FromRoute] int id, CancellationToken cancellationToken)

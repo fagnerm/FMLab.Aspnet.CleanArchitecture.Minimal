@@ -14,7 +14,7 @@ public static class Extensions
 
         return type switch
         {
-            ResultType.Success => Results.Ok(result.Data),
+            ResultType.Success => Results.Ok(result.Data<IResultData>()),
             ResultType.NoContent => Results.NoContent(),
             ResultType.NotFound => Results.Problem(result.Error, statusCode: StatusCodes.Status404NotFound, type: "about:blank"),
             ResultType.Validation => Results.Problem(result.Error, statusCode: StatusCodes.Status422UnprocessableEntity, type: "about:blank"),

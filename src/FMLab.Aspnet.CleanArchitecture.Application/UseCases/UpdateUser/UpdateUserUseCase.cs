@@ -39,6 +39,6 @@ public class UpdateUserUseCase : TransactionalUseCaseBase<UpdateUserInputDTO, Up
 
         _repository.Update(user);
 
-        return Result<UpdateUserOutputDTO>.Success();
+        return Result.Success();
     }
 }
