@@ -33,6 +33,7 @@ public class UserRepository : IUserRepository
     {
         var user = await _dbContext
                             .Users
+                            .AsTracking()
                             .SingleOrDefaultAsync(_ => _.Id == id, cancellationToken);
 
         return user;

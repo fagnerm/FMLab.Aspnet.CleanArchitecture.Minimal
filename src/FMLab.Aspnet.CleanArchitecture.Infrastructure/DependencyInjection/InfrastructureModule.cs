@@ -23,7 +23,8 @@ public static class InfrastructureModule
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseInMemoryDatabase("clean-arch")
-                   .LogTo(Console.WriteLine, LogLevel.Information);
+                   .LogTo(Console.WriteLine, LogLevel.Information)
+                   .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
             if (environment.IsDevelopment())
                 options.EnableSensitiveDataLogging();
