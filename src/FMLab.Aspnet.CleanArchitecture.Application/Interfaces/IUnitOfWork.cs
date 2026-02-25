@@ -6,5 +6,7 @@ namespace FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 
 public interface IUnitOfWork
 {
-    Task CommitAsync(CancellationToken cancellationToken = default);
+    Task BeginTransactionAsync(CancellationToken cancellationToken);
+    Task CommitTransactionAsync(CancellationToken cancellationToken);
+    Task RollbackTransactionAsync(CancellationToken cancellationToken);
 }

@@ -5,6 +5,7 @@
 using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace FMLab.Aspnet.CleanArchitecture.Infrastructure.Persistence.Context;
 
@@ -17,6 +18,13 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.ConfigureWarnings(_ => _.Ignore(InMemoryEventId.TransactionIgnoredWarning));
+
+        base.OnConfiguring(optionsBuilder);
     }
 
     public DbSet<User> Users { get; set; }
