@@ -4,18 +4,16 @@
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
 
-public class Result<TOutput>
-    where TOutput : class
+public class Result
 {
     public bool IsSuccess { get; protected set; }
     public string? Error { get; protected set; }
-    public TOutput? Data { get; protected set; } = default;
+    public object Data { get; protected set; }
     public ResultType Type { get; protected set; }
 
-    private Result(TOutput? data)
+    private Result(ResultType type = ResultType.Success)
     {
-        IsSuccess = true;
-        Data = data;
+        Type = type;
     }
 
     private Result(string? error, ResultType type)
@@ -25,32 +23,37 @@ public class Result<TOutput>
         Type = type;
     }
 
-    public static Result<TOutput> Success(TOutput? data = default)
+    public static Result Success<TOutput>(TOutput? data = default)
     {
-        return new Result<TOutput>(data);
+        return new Result(ResultType.Success)
+        {
+            IsSuccess = true,
+            Data = data
+        };
     }
 
-    public static Result<TOutput> NotFound(string? error)
+    public static Result NotFound(string? error)
     {
-        return new Result<TOutput>(error, ResultType.NotFound);
+        return new Result(error, ResultType.NotFound);
     }
 
-    public static Result<TOutput> Validation(string? error)
+    public static Result Validation(string? error)
     {
-        return new Result<TOutput>(error, ResultType.Validation);
+        return new Result(error, ResultType.Validation);
     }
 
-    public static Result<TOutput> Domain(string? error)
+    public static Result Domain(string? error)
     {
-        return new Result<TOutput>(error, ResultType.Domain);
+        return new Result(error, ResultType.Domain);
     }
 
-    public static Result<TOutput> Conflict(string? error)
+    public static Result Conflict(string? error)
     {
-        return new Result<TOutput>(error, ResultType.Conflict);
+        return new Result(error, ResultType.Conflict);
     }
 
 }
+     
 
 public enum ResultType
 {

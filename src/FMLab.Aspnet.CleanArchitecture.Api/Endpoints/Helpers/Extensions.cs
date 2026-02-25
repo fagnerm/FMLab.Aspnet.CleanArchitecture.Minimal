@@ -8,8 +8,7 @@ namespace FMLab.Aspnet.CleanArchitecture.Api.Endpoints.Helpers;
 
 public static class Extensions
 {
-    public static IResult ToProblemResult<T>(this Result<T> result, ResultType? @default = null)
-    where T : class
+    public static IResult ToProblemResult(this Result result, ResultType? @default = null)
     {
         var type = result.IsSuccess && @default.HasValue ? @default : result.Type;
 
