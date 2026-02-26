@@ -16,12 +16,7 @@ builder.Services.AddAppProblemDetails();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseAppSwagger();
-}
-
-app.UseHttpsRedirection();
+app.UseAppSwagger();
 app.UseApplicationEndpoints();
 app.UseAppProblemDetails();
 
