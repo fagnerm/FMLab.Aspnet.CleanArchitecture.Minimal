@@ -2,9 +2,9 @@
 // Copyright (c) 2026 Fagner Marinho 
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
-namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 
-public record CollectionResult<TItems>
+public record CollectionResult<TItems> : IResultData
     where TItems : class
 {
     public int Page { get; init; }

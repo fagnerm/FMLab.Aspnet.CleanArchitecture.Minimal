@@ -5,7 +5,7 @@
 using FluentValidation;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
 
@@ -23,15 +23,15 @@ public class UpdateUserUseCase : TransactionalUseCaseBase<UpdateUserInputDTO, Up
         _validator = validator;
     }
 
-    public override async Task<Result<UpdateUserOutputDTO>> ExecuteHandlerAsync(UpdateUserInputDTO input, CancellationToken cancellationToken)
+    public override async Task<Result> ExecuteHandlerAsync(UpdateUserInputDTO input, CancellationToken cancellationToken)
     {
         var validation = _validator.Validate(input);
         if (!validation.IsValid)
-            return Result<UpdateUserOutputDTO>.Validation(error: validation.Errors[0].ErrorMessage);
+            return Result.Validation(error: validation.Errors[0].ErrorMessage);
 
         var user = await _repository.GetByIdAsync(input.Id, cancellationToken);
 
-        if (user is null) return Result<UpdateUserOutputDTO>.NotFound("User not found");
+        if (user is null) return Result.NotFound("User not found");
 
         var name = new Name(input.Name!);
         var email = string.IsNullOrEmpty(input.Email) ? null : new Email(input.Email!);

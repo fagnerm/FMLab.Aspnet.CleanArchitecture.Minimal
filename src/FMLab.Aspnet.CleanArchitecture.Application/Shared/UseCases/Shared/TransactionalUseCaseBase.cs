@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Domain.Exceptions;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases;
@@ -19,22 +19,22 @@ public abstract class TransactionalUseCaseBase<TInput, TOutput> : IUseCase<TInpu
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Result<TOutput>> ExecuteAsync(TInput input, CancellationToken cancellationToken)
+    public async Task<Result> ExecuteAsync(TInput input, CancellationToken cancellationToken)
     {
         try
         {
             var result = await ExecuteHandlerAsync(input, cancellationToken);
 
             if (result.IsSuccess)
-                await _unitOfWork.CommitAsync(cancellationToken);
+                await _unitOfWork.CommitTransactionAsync(cancellationToken);
 
             return result;
         }
         catch (DomainException ex)
         {
-            return Result<TOutput>.Domain(ex.Message);
+            return Result.Domain(ex.Message);
         }
     }
 
-    public abstract Task<Result<TOutput>> ExecuteHandlerAsync(TInput input, CancellationToken cancellationToken);
+    public abstract Task<Result> ExecuteHandlerAsync(TInput input, CancellationToken cancellationToken);
 }

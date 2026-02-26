@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases;
 
 namespace FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableUser;
@@ -19,13 +19,13 @@ public class DisableUserUseCase : TransactionalUseCaseBase<DisableUserInputDTO, 
         _repository = repository;
     }
 
-    public override async Task<Result<DisableUserOutputDTO>> ExecuteHandlerAsync(DisableUserInputDTO input, CancellationToken cancellationToken)
+    public override async Task<Result> ExecuteHandlerAsync(DisableUserInputDTO input, CancellationToken cancellationToken)
     {
         var user = await _repository.GetByIdAsync(input.Id, cancellationToken);
 
         if (user == null)
         {
-            return Result<DisableUserOutputDTO>.NotFound("User not found");
+            return Result.NotFound("User not found");
         }
 
         user.Deactivate();

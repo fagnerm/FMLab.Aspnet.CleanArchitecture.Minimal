@@ -6,7 +6,7 @@ using FluentValidation;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Application.Shared.UseCases;
 using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
@@ -27,24 +27,24 @@ public class CreateUserUseCase : TransactionalUseCaseBase<CreateUserInputDTO, Cr
         _gateway = gateway;
     }
 
-    public override async Task<Result<CreateUserOutputDTO>> ExecuteHandlerAsync(CreateUserInputDTO input, CancellationToken cancellationToken)
+    public override async Task<Result> ExecuteHandlerAsync(CreateUserInputDTO input, CancellationToken cancellationToken)
     {
         var validation = _validator.Validate(input);
         if (!validation.IsValid)
-            return Result<CreateUserOutputDTO>.Validation(error: validation.Errors[0].ErrorMessage);
+            return Result.Validation(error: validation.Errors[0].ErrorMessage);
 
         var name = new Name(input.Name);
         var email = input.Email is null ? null : new Email(input.Email);
 
         var found = await _gateway.ExistsByKeyAsync(name.Value, email?.Value, cancellationToken);
 
-        if (found) return Result<CreateUserOutputDTO>.Conflict("User already exists");
+        if (found) return Result.Conflict("User already exists");
 
         var user = new User(name, email);
         await _repository.AddAsync(user, cancellationToken);
 
         var result = new CreateUserOutputDTO(user.Id, user.Name.Value, user.Email?.Value, user.Status.ToString());
 
-        return Result<CreateUserOutputDTO>.Success(result);
+        return Result.Success(result);
     }
 }
