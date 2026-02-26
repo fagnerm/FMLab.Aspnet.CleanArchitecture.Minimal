@@ -2,11 +2,11 @@
 // Copyright (c) 2026 Fagner Marinho
 // Licensed under the MIT License. See LICENSE file in the project root for details.
 
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
+using FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.CreateUser;
-using FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 
 namespace FMLab.Aspnet.CleanArchitecture.Tests.Api;
 

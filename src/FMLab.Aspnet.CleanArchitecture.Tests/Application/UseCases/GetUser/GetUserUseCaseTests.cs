@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.GetUser;
 using NSubstitute;
 
@@ -29,11 +29,11 @@ public class GetUserUseCaseTests
         var result = await _useCase.ExecuteAsync(new GetUserInputDTO(1), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.NotNull(result.Data);
-        Assert.Equal(1, result.Data.Id);
-        Assert.Equal("Fagner", result.Data.Name);
-        Assert.Equal("fagner@example.com", result.Data.Email);
-        Assert.Equal("Active", result.Data.Status);
+        Assert.NotNull(result.Data<UserSummaryDTO>());
+        Assert.Equal(1, result.Data<UserSummaryDTO>().Id);
+        Assert.Equal("Fagner", result.Data<UserSummaryDTO>().Name);
+        Assert.Equal("fagner@example.com", result.Data<UserSummaryDTO>().Email);
+        Assert.Equal("Active", result.Data<UserSummaryDTO>().Status);
     }
 
     [Fact]

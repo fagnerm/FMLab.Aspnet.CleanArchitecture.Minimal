@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.DTOs;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Gateways;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.ListUsers;
 using FMLab.Aspnet.CleanArchitecture.Domain.Enums;
 using NSubstitute;
@@ -35,10 +35,10 @@ public class ListUsersUseCaseTests
         var result = await _useCase.ExecuteAsync(new ListUsersInputDTO(null, 1, 20), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.Equal(2, result.Data!.TotalItems);
-        Assert.Equal(2, result.Data.Items.Count);
-        Assert.Equal(1, result.Data.Page);
-        Assert.Equal(20, result.Data.PageSize);
+        Assert.Equal(2, result.Data<CollectionResult<UserSummaryDTO>>().TotalItems);
+        Assert.Equal(2, result.Data<CollectionResult<UserSummaryDTO>>().Items.Count);
+        Assert.Equal(1, result.Data<CollectionResult<UserSummaryDTO>>().Page);
+        Assert.Equal(20, result.Data<CollectionResult<UserSummaryDTO>>().PageSize);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class ListUsersUseCaseTests
         var result = await _useCase.ExecuteAsync(new ListUsersInputDTO(null, 1, 20), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.Empty(result.Data!.Items);
-        Assert.Equal(0, result.Data.TotalItems);
+        Assert.Empty(result.Data<CollectionResult<UserSummaryDTO>>()!.Items);
+        Assert.Equal(0, result.Data<CollectionResult<UserSummaryDTO>>().TotalItems);
     }
 }

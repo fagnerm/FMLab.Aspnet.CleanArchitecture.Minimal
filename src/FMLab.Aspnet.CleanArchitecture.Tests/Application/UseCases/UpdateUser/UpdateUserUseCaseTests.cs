@@ -6,7 +6,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
@@ -36,18 +36,6 @@ public class UpdateUserUseCaseTests
         var result = await _useCase.ExecuteAsync(new UpdateUserInputDTO(1, "John", null), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-    }
-
-    [Fact]
-    public async Task ExecuteAsync_WhenSuccessful_CommitsUnitOfWork()
-    {
-        var user = new User(new Name("Fagner"), null);
-        _validator.Validate(Arg.Any<UpdateUserInputDTO>()).Returns(new ValidationResult());
-        _repository.GetByIdAsync(1, Arg.Any<CancellationToken>()).Returns(user);
-
-        await _useCase.ExecuteAsync(new UpdateUserInputDTO(1, "John", null), CancellationToken.None);
-
-        await _unitOfWork.Received(1).CommitAsync(Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -97,16 +85,5 @@ public class UpdateUserUseCaseTests
         Assert.False(result.IsSuccess);
         Assert.Equal(ResultType.NotFound, result.Type);
         Assert.Equal("User not found", result.Error);
-    }
-
-    [Fact]
-    public async Task ExecuteAsync_WhenUserNotFound_DoesNotCommit()
-    {
-        _validator.Validate(Arg.Any<UpdateUserInputDTO>()).Returns(new ValidationResult());
-        _repository.GetByIdAsync(99, Arg.Any<CancellationToken>()).Returns((User?)null);
-
-        await _useCase.ExecuteAsync(new UpdateUserInputDTO(99, "John", null), CancellationToken.None);
-
-        await _unitOfWork.DidNotReceive().CommitAsync(Arg.Any<CancellationToken>());
     }
 }

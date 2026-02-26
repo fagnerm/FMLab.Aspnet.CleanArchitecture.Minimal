@@ -20,7 +20,7 @@ public class UnitOfWorkTests
         {
             await context.Users.AddAsync(user);
             var unitOfWork = new UnitOfWork(context);
-            await unitOfWork.CommitAsync(CancellationToken.None);
+            await unitOfWork.CommitTransactionAsync(CancellationToken.None);
         }
 
         await using (var context = DbContextFactory.Create(dbName))
@@ -38,7 +38,7 @@ public class UnitOfWorkTests
         var unitOfWork = new UnitOfWork(context);
 
         var exception = await Record.ExceptionAsync(
-            () => unitOfWork.CommitAsync(CancellationToken.None));
+            () => unitOfWork.CommitTransactionAsync(CancellationToken.None));
 
         Assert.Null(exception);
     }
@@ -54,7 +54,7 @@ public class UnitOfWorkTests
         {
             await context.Users.AddRangeAsync(user1, user2);
             var unitOfWork = new UnitOfWork(context);
-            await unitOfWork.CommitAsync(CancellationToken.None);
+            await unitOfWork.CommitTransactionAsync(CancellationToken.None);
         }
 
         await using (var context = DbContextFactory.Create(dbName))

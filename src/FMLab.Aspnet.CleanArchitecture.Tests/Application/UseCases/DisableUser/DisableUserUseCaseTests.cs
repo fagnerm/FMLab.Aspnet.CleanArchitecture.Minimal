@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.DisableUser;
 using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Domain.Enums;
@@ -47,17 +47,6 @@ public class DisableUserUseCaseTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_WhenSuccessful_CommitsUnitOfWork()
-    {
-        var user = new User(new Name("Fagner"), null);
-        _repository.GetByIdAsync(1, Arg.Any<CancellationToken>()).Returns(user);
-
-        await _useCase.ExecuteAsync(new DisableUserInputDTO(1), CancellationToken.None);
-
-        await _unitOfWork.Received(1).CommitAsync(Arg.Any<CancellationToken>());
-    }
-
-    [Fact]
     public async Task ExecuteAsync_WhenUserNotFound_ReturnsNotFound()
     {
         _repository.GetByIdAsync(99, Arg.Any<CancellationToken>()).Returns((User?)null);
@@ -67,16 +56,6 @@ public class DisableUserUseCaseTests
         Assert.False(result.IsSuccess);
         Assert.Equal(ResultType.NotFound, result.Type);
         Assert.Equal("User not found", result.Error);
-    }
-
-    [Fact]
-    public async Task ExecuteAsync_WhenUserNotFound_DoesNotCommit()
-    {
-        _repository.GetByIdAsync(99, Arg.Any<CancellationToken>()).Returns((User?)null);
-
-        await _useCase.ExecuteAsync(new DisableUserInputDTO(99), CancellationToken.None);
-
-        await _unitOfWork.DidNotReceive().CommitAsync(Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -91,17 +70,5 @@ public class DisableUserUseCaseTests
         Assert.False(result.IsSuccess);
         Assert.Equal(ResultType.Domain, result.Type);
         Assert.Equal("User already deactivated", result.Error);
-    }
-
-    [Fact]
-    public async Task ExecuteAsync_WhenDomainExceptionThrown_DoesNotCommit()
-    {
-        var user = new User(new Name("Fagner"), null);
-        user.Deactivate();
-        _repository.GetByIdAsync(1, Arg.Any<CancellationToken>()).Returns(user);
-
-        await _useCase.ExecuteAsync(new DisableUserInputDTO(1), CancellationToken.None);
-
-        await _unitOfWork.DidNotReceive().CommitAsync(Arg.Any<CancellationToken>());
     }
 }

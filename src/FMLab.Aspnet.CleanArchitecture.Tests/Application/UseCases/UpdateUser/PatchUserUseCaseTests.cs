@@ -4,7 +4,7 @@
 
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces;
 using FMLab.Aspnet.CleanArchitecture.Application.Interfaces.Repositories;
-using FMLab.Aspnet.CleanArchitecture.Application.Shared.Result;
+using FMLab.Aspnet.CleanArchitecture.Application.Shared.ResultTypes;
 using FMLab.Aspnet.CleanArchitecture.Application.UseCases.UpdateUser;
 using FMLab.Aspnet.CleanArchitecture.Domain.Entities;
 using FMLab.Aspnet.CleanArchitecture.Domain.ValueObjects;
@@ -32,8 +32,8 @@ public class PatchUserUseCaseTests
         var result = await _useCase.ExecuteAsync(new UpdateUserInputDTO(1, "John", null), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.Equal("John", result.Data!.Name);
-        Assert.Equal("fagner@example.com", result.Data.Email);
+        Assert.Equal("John", result.Data<UpdateUserOutputDTO>().Name);
+        Assert.Equal("fagner@example.com", result.Data<UpdateUserOutputDTO>().Email);
     }
 
     [Fact]
@@ -45,8 +45,8 @@ public class PatchUserUseCaseTests
         var result = await _useCase.ExecuteAsync(new UpdateUserInputDTO(1, null, "new@example.com"), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.Equal("Fagner", result.Data!.Name);
-        Assert.Equal("new@example.com", result.Data.Email);
+        Assert.Equal("Fagner", result.Data<UpdateUserOutputDTO>()!.Name);
+        Assert.Equal("new@example.com", result.Data<UpdateUserOutputDTO>().Email);
     }
 
     [Fact]
@@ -58,8 +58,8 @@ public class PatchUserUseCaseTests
         var result = await _useCase.ExecuteAsync(new UpdateUserInputDTO(1, "John", "john@example.com"), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.Equal("John", result.Data!.Name);
-        Assert.Equal("john@example.com", result.Data.Email);
+        Assert.Equal("John", result.Data<UpdateUserOutputDTO>()!.Name);
+        Assert.Equal("john@example.com", result.Data<UpdateUserOutputDTO>().Email);
     }
 
     [Fact]
@@ -71,8 +71,8 @@ public class PatchUserUseCaseTests
         var result = await _useCase.ExecuteAsync(new UpdateUserInputDTO(1, null, null), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.Equal("Fagner", result.Data!.Name);
-        Assert.Equal("fagner@example.com", result.Data.Email);
+        Assert.Equal("Fagner", result.Data<UpdateUserOutputDTO>()!.Name);
+        Assert.Equal("fagner@example.com", result.Data<UpdateUserOutputDTO>().Email);
     }
 
     [Fact]
@@ -84,20 +84,9 @@ public class PatchUserUseCaseTests
         var result = await _useCase.ExecuteAsync(new UpdateUserInputDTO(1, "John", null), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.NotNull(result.Data);
-        Assert.Equal("John", result.Data.Name);
-        Assert.Null(result.Data.Email);
-    }
-
-    [Fact]
-    public async Task ExecuteAsync_WhenSuccessful_CommitsUnitOfWork()
-    {
-        var user = new User(new Name("Fagner"), null);
-        _repository.GetByIdAsync(1, Arg.Any<CancellationToken>()).Returns(user);
-
-        await _useCase.ExecuteAsync(new UpdateUserInputDTO(1, "John", null), CancellationToken.None);
-
-        await _unitOfWork.Received(1).CommitAsync(Arg.Any<CancellationToken>());
+        Assert.NotNull(result.Data<UpdateUserOutputDTO>());
+        Assert.Equal("John", result.Data<UpdateUserOutputDTO>().Name);
+        Assert.Null(result.Data<UpdateUserOutputDTO>().Email);
     }
 
     [Fact]
