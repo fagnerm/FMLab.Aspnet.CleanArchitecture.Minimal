@@ -13,9 +13,6 @@ Clean Architecture enforces separation of concerns by dividing the application i
 Details such as UI, database provider, external services, or cloud infrastructure must never influence business logic.
 
 ## Architecture
-
-![Clean Architecture](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
-
 **Dependency direction:**
 > Domain <- Application <- Infrastructure <- Api
 
